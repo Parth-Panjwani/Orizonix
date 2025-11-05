@@ -5,8 +5,8 @@ import ServiceCard from "./ServiceCard";
 
 const BrandIcon = () => (
   <svg
-    width="48"
-    height="48"
+    width="40"
+    height="40"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -22,8 +22,8 @@ const BrandIcon = () => (
 
 const WebIcon = () => (
   <svg
-    width="48"
-    height="48"
+    width="40"
+    height="40"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -39,8 +39,8 @@ const WebIcon = () => (
 
 const AIIcon = () => (
   <svg
-    width="48"
-    height="48"
+    width="40"
+    height="40"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -55,8 +55,8 @@ const AIIcon = () => (
 
 const MarketingIcon = () => (
   <svg
-    width="48"
-    height="48"
+    width="40"
+    height="40"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -72,26 +72,19 @@ const MarketingIcon = () => (
 
 export default function Services() {
   return (
-    <section className="py-24 px-4 md:px-8 relative overflow-hidden">
-      {/* Creative background elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-neon-blue/5 rounded-full blur-3xl creative-blob" />
-      <div
-        className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-purple/5 rounded-full blur-3xl creative-blob"
-        style={{ animationDelay: "2s" }}
-      />
-
-      <div className="container mx-auto relative z-10">
+    <section id="services" className="py-20 px-4 md:px-8">
+      <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="text-center mb-12"
         >
-          <motion.h2 className="text-4xl md:text-6xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             <span className="gradient-text">What We Do</span>
-          </motion.h2>
-          <p className="text-xl text-gray-400">
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             Creative solutions that drive real business growth
           </p>
         </motion.div>
@@ -99,47 +92,29 @@ export default function Services() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <ServiceCard
             title="Branding & Identity"
-            description="Memorable brand identities that tell your story and connect with your audience. Logo design, brand guidelines, and visual identity systems."
+            description="Memorable brand identities that tell your story and connect with your audience."
             icon={<BrandIcon />}
             delay={0}
-            gradient="from-neon-blue to-neon-cyan"
           />
           <ServiceCard
             title="Web & UI/UX Design"
-            description="Beautiful, conversion-focused websites and digital experiences. User-centered design that drives engagement and sales."
+            description="Beautiful, conversion-focused websites and digital experiences."
             icon={<WebIcon />}
             delay={0.1}
-            gradient="from-neon-purple to-neon-blue"
           />
           <ServiceCard
             title="Digital Marketing"
-            description="Strategic campaigns that scale your business. Social media, content marketing, SEO, PPC, and growth strategies that deliver ROI."
+            description="Strategic campaigns that scale your business and deliver ROI."
             icon={<MarketingIcon />}
             delay={0.2}
-            gradient="from-pink-500 to-neon-purple"
           />
           <ServiceCard
             title="AI Automation"
-            description="Smart workflows that save time and boost efficiency. n8n, Airtable, Telegram bots, and custom automation solutions."
+            description="Smart workflows that save time and boost efficiency."
             icon={<AIIcon />}
             delay={0.3}
-            gradient="from-neon-cyan to-neon-blue"
           />
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 text-center"
-        >
-          {/* <p className="text-gray-400 text-sm">
-            <span className="gradient-text font-semibold">Tech Stack:</span>{" "}
-            n8n, Airtable, Telegram/Voice integrations, React, Next.js, Framer
-            Motion
-          </p> */}
-        </motion.div>
       </div>
     </section>
   );

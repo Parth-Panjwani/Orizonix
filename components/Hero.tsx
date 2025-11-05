@@ -1,60 +1,82 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
+import AnimatedGradient from "./AnimatedGradient";
 
-// Lazy load FloatingOrb
-const FloatingOrb = dynamic(() => import("./FloatingOrb"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 border-2 border-neon-blue/30 rounded-full animate-pulse" />
-    </div>
-  ),
-});
+interface CounterProps {
+  end: number;
+  suffix?: string;
+  duration?: number;
+}
+
+function Counter({ end, suffix = "", duration = 2 }: CounterProps) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number;
+    const startValue = 0;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
+
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
+      setCount(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [end, duration]);
+
+  return (
+    <span>
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-20">
-      {/* Creative background blobs - use CSS animations instead */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-neon-blue/10 rounded-full blur-3xl creative-blob" />
-      <div
-        className="absolute bottom-1/4 right-0 w-96 h-96 bg-neon-purple/10 rounded-full blur-3xl creative-blob"
-        style={{ animationDelay: "1s" }}
-      />
-      <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-neon-pink/10 rounded-full blur-3xl creative-blob"
-        style={{ animationDelay: "2s" }}
-      />
-
-      <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="container mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
         {/* Left: Text Content */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.5 }}
           className="z-10"
         >
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-surface/50 border border-dark-border backdrop-blur-sm mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-gray-200 dark:border-gray-700 mb-6"
           >
-            <span className="w-2 h-2 bg-neon-blue rounded-full animate-pulse" />
-            <span className="text-sm text-gray-300">Creative-Tech Agency</span>
+            <span className="w-2 h-2 bg-primary-600 dark:bg-accent-dark rounded-full animate-pulse" />
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              Creative-Tech Agency
+            </span>
           </motion.div>
 
-          {/* Main Heading - 2 lines only */}
+          {/* Main Heading - 2 lines */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-gray-900 dark:text-white"
           >
-            <span className="block text-white mb-2">
+            <span className="block mb-2">
               We Craft Brands. Build Systems.
             </span>
             <span className="block gradient-text">Automate Growth.</span>
@@ -64,62 +86,61 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-xl"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 leading-relaxed max-w-xl"
           >
             Where <span className="gradient-text font-semibold">Creative Strategy</span> meets{" "}
             <span className="gradient-text font-semibold">Digital Innovation</span>.
-            <br />
-            We craft brands, build digital experiences, and drive growth through marketing excellence.
+            <br className="hidden sm:block" />
+            <span className="block sm:inline">
+              We craft brands, build digital experiences, and drive growth through marketing excellence.
+            </span>
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 mb-8"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8"
           >
             <motion.a
               href="https://wa.me/919898084143"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-neon-blue text-dark-bg font-semibold rounded-lg hover:bg-neon-cyan transition-all duration-300 text-center relative overflow-hidden group"
-              style={{ willChange: "transform" }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-6 sm:px-8 py-3 sm:py-4 btn-premium text-white font-semibold rounded-lg transition-all duration-200 text-center text-sm sm:text-base"
             >
-              <span className="relative z-10">Let&apos;s Build Together →</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              Let&apos;s Build Together →
             </motion.a>
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-transparent border-2 border-neon-blue text-neon-blue font-semibold rounded-lg neon-border hover:neon-border-glow transition-all duration-300 text-center"
-              style={{ willChange: "transform" }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-6 sm:px-8 py-3 sm:py-4 glass border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 text-center text-sm sm:text-base"
             >
               Book a Free Strategy Call
             </motion.a>
           </motion.div>
 
-          {/* Stats - Premium feel */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-3 gap-6 pt-8 border-t border-dark-border/50"
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-800"
           >
             {[
-              { label: "Projects", value: "50+" },
-              { label: "Clients", value: "100+" },
-              { label: "Success", value: "98%" },
+              { label: "Projects", value: 50, suffix: "+" },
+              { label: "Clients", value: 100, suffix: "+" },
+              { label: "Success", value: 98, suffix: "%" },
             ].map((stat, index) => (
               <div key={index} className="text-left">
-                <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">
-                  {stat.value}
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text mb-1">
+                  <Counter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">
+                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {stat.label}
                 </div>
               </div>
@@ -127,163 +148,75 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right: Enhanced 3D Creative Visual */}
+        {/* Right: Premium Animated Visual */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative h-[500px] md:h-[600px] w-full"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="relative h-[300px] sm:h-[400px] md:h-[500px] w-full max-w-md mx-auto md:max-w-none"
         >
-          {/* Main 3D Orb */}
-          <div className="absolute inset-0">
-            <Suspense fallback={<div className="w-full h-full" />}>
-              <FloatingOrb />
-            </Suspense>
-          </div>
+          {/* Animated Gradient Background */}
+          <AnimatedGradient />
 
-          {/* Multiple rotating rings - use CSS transforms */}
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-              animation: "rotate 25s linear infinite",
-              willChange: "transform",
-            }}
-          >
-            <div className="w-full h-full border border-neon-blue/20 rounded-full" />
-          </div>
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-              animation: "rotate-reverse 35s linear infinite",
-              willChange: "transform",
-            }}
-          >
-            <div className="w-[85%] h-[85%] border border-neon-purple/20 rounded-full" />
-          </div>
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-              animation: "rotate 45s linear infinite",
-              willChange: "transform",
-            }}
-          >
-            <div className="w-[70%] h-[70%] border border-neon-cyan/15 rounded-full" />
-          </div>
-
-          {/* Reduced floating particles - from 8 to 4 */}
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-3 h-3 bg-neon-blue rounded-full"
-              style={{
-                left: `${15 + (i % 2) * 35}%`,
-                top: `${25 + Math.floor(i / 2) * 35}%`,
-                boxShadow: "0 0 20px rgba(0, 212, 255, 0.6)",
-                animation: `float-${i} ${4 + i * 0.5}s ease-in-out infinite`,
-                animationDelay: `${i * 0.4}s`,
-                willChange: "transform, opacity",
+          {/* Premium Geometric Shapes */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Main Orb - Glassmorphism */}
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+                rotate: [0, 5, 0],
               }}
-            />
-          ))}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80"
+            >
+              <div className="absolute inset-0 rounded-full glass border-2 border-primary-200 dark:border-primary-800/50" />
+              <div className="absolute inset-4 rounded-full glass border border-primary-300 dark:border-primary-700/50" />
+              
+              {/* Center gradient dot */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.6, 1, 0.6],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 dark:from-accent-dark dark:to-primary-400 blur-xl"
+              />
+            </motion.div>
 
-          {/* Geometric shapes - use CSS animations */}
-          <div
-            className="absolute top-1/4 right-1/4 w-16 h-16 border-2 border-neon-blue/30"
-            style={{
-              transform: "rotate(45deg)",
-              animation: "rotate 20s linear infinite",
-              willChange: "transform",
-            }}
-          />
-          <div
-            className="absolute bottom-1/4 left-1/4 w-12 h-12 border-2 border-neon-purple/30"
-            style={{
-              transform: "rotate(45deg)",
-              animation: "rotate-reverse 30s linear infinite",
-              willChange: "transform",
-            }}
-          />
+            {/* Floating decorative elements */}
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{
+                  y: [0, -20, 0],
+                  x: [0, Math.sin(i) * 15, 0],
+                  opacity: [0.4, 0.8, 0.4],
+                }}
+                transition={{
+                  duration: 4 + i,
+                  repeat: Infinity,
+                  delay: i * 0.5,
+                  ease: "easeInOut",
+                }}
+                className="absolute w-3 h-3 rounded-full bg-primary-400 dark:bg-accent-dark"
+                style={{
+                  left: `${20 + i * 30}%`,
+                  top: `${30 + (i % 2) * 40}%`,
+                  boxShadow: "0 0 20px rgba(102, 126, 234, 0.5)",
+                }}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
-
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes rotate-reverse {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(-360deg);
-          }
-        }
-
-        @keyframes float-0 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translate(0, -40px) scale(1.5);
-            opacity: 1;
-          }
-        }
-
-        @keyframes float-1 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translate(15px, -40px) scale(1.5);
-            opacity: 1;
-          }
-        }
-
-        @keyframes float-2 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translate(-15px, -40px) scale(1.5);
-            opacity: 1;
-          }
-        }
-
-        @keyframes float-3 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translate(20px, -40px) scale(1.5);
-            opacity: 1;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          *,
-          *::before,
-          *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

@@ -8,7 +8,6 @@ interface ServiceCardProps {
   description: string;
   icon: ReactNode;
   delay?: number;
-  gradient?: string;
 }
 
 export default function ServiceCard({
@@ -16,48 +15,61 @@ export default function ServiceCard({
   description,
   icon,
   delay = 0,
-  gradient = "from-neon-blue to-neon-purple",
 }: ServiceCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ y: -10, scale: 1.02 }}
-      className="relative p-8 bg-dark-surface border border-dark-border rounded-2xl group cursor-pointer overflow-hidden shimmer"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className="relative p-6 glass glass-hover rounded-2xl group cursor-pointer overflow-hidden transition-all duration-300 border border-gray-200 dark:border-gray-700"
     >
-      {/* Gradient background blob */}
-      <div
-        className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-20 blur-3xl rounded-full transition-opacity duration-500 creative-blob`}
-      />
+      {/* Minimal abstract corner element */}
+      <div className="absolute top-0 left-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div
+          className="absolute top-0 left-0 w-full h-full"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(102, 126, 234, 0.08), transparent)",
+            clipPath: "polygon(0 0, 100% 0, 0 100%)",
+          }}
+        />
+      </div>
 
-      {/* Neon glow border on hover */}
-      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 neon-border-glow" />
-
-      {/* Icon with gradient */}
+      {/* Icon */}
       <motion.div
-        whileHover={{ scale: 1.15, rotate: 360 }}
-        transition={{ duration: 0.6 }}
-        className={`mb-6 bg-gradient-to-br ${gradient} bg-clip-text text-transparent`}
-        style={{ WebkitTextFillColor: "transparent" }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: delay + 0.1 }}
+        whileHover={{ scale: 1.05 }}
+        className="mb-4 text-primary-600 dark:text-accent-dark"
       >
-        <div className="text-neon-blue">{icon}</div>
+        {icon}
       </motion.div>
 
       {/* Title */}
-      <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
+      <motion.h3
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: delay + 0.2 }}
+        className="text-xl font-bold text-gray-900 dark:text-white mb-2"
+      >
+        {title}
+      </motion.h3>
 
       {/* Description */}
-      <p className="text-gray-400 text-sm leading-relaxed mb-4">
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: delay + 0.3 }}
+        className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+      >
         {description}
-      </p>
-
-      {/* Shimmer effect */}
-      <div className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-neon-blue to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-
-      {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-neon-blue/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </motion.p>
     </motion.div>
   );
 }

@@ -17,37 +17,54 @@ export default function ProjectCard({
   onClick,
 }: ProjectCardProps) {
   const [imageError, setImageError] = useState(false);
-  const gradientClasses = {
-    "digital-creative": "from-neon-pink to-neon-purple",
-    website: "from-neon-blue to-neon-cyan",
-    automation: "from-neon-purple to-neon-blue",
-  };
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      layout
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ y: -10, scale: 1.02 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
       onClick={onClick}
-      className="relative group cursor-pointer overflow-hidden rounded-2xl bg-dark-surface border border-dark-border"
+      className="relative group cursor-pointer overflow-hidden rounded-2xl glass transition-all duration-300 border border-gray-200 dark:border-gray-700"
+      style={{ willChange: "transform" }}
     >
+      {/* Minimal abstract corner element */}
+      <div className="absolute top-0 left-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+        <div
+          className="absolute top-0 left-0 w-full h-full"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(102, 126, 234, 0.08), transparent)",
+            clipPath: "polygon(0 0, 100% 0, 0 100%)",
+          }}
+        />
+      </div>
+
       {/* Image Container */}
-      <div className="relative h-64 w-full overflow-hidden">
+      <div className="relative h-48 w-full overflow-hidden">
         {!imageError && project.images?.[0] ? (
-          <Image
-            src={project.images[0]}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-            onError={() => setImageError(true)}
-            unoptimized
-          />
+          <>
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 animate-pulse" />
+            )}
+            <Image
+              src={project.images[0]}
+              alt={project.title}
+              fill
+              className={`object-cover transition-opacity duration-300 group-hover:scale-105 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+              unoptimized
+              style={{ willChange: "transform" }}
+            />
+          </>
         ) : (
-          <div
-            className={`w-full h-full bg-gradient-to-br ${gradientClasses[project.type]} opacity-20 flex items-center justify-center`}
-          >
+          <div className="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 flex items-center justify-center">
             <div className="text-4xl opacity-50">
               {project.type === "digital-creative" && "🎨"}
               {project.type === "website" && "💻"}
@@ -56,39 +73,27 @@ export default function ProjectCard({
           </div>
         )}
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 via-dark-bg/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
         {/* Project Type Badge */}
-        <div
-          className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${gradientClasses[project.type]} text-white`}
-        >
+        <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold glass text-gray-900 dark:text-white z-20">
           {project.type === "digital-creative" && "Creative"}
           {project.type === "website" && "Website"}
           {project.type === "automation" && "Automation"}
         </div>
 
-        {/* Featured Badge */}
-        {project.featured && (
-          <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-neon-blue text-dark-bg">
-            Featured
-          </div>
-        )}
-
         {/* Live Preview Indicator */}
         {project.liveUrl && (
-          <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
-            <span>🔗</span> Live
+          <div className="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white z-20">
+            Live
           </div>
         )}
       </div>
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-neon-blue transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-accent-dark transition-colors duration-200">
           {project.title}
         </h3>
-        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
           {project.description}
         </p>
 
@@ -97,24 +102,18 @@ export default function ProjectCard({
           {project.tags.slice(0, 3).map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 text-xs rounded-md bg-dark-border text-gray-400"
+              className="px-2 py-1 text-xs rounded-md glass text-gray-700 dark:text-gray-300"
             >
               {tag}
             </span>
           ))}
           {project.tags.length > 3 && (
-            <span className="px-2 py-1 text-xs rounded-md bg-dark-border text-gray-400">
+            <span className="px-2 py-1 text-xs rounded-md glass text-gray-700 dark:text-gray-300">
               +{project.tags.length - 3}
             </span>
           )}
         </div>
       </div>
-
-      {/* Hover Glow Effect */}
-      <div
-        className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br ${gradientClasses[project.type]} blur-xl -z-10`}
-      />
     </motion.div>
   );
 }
-

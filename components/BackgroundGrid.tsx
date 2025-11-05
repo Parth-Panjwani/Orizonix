@@ -1,90 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
 export default function BackgroundGrid() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: false }); // Better performance
-    if (!ctx) return;
-
-    let animationId: number;
-    let lastTime = 0;
-    const targetFPS = 30; // Reduced from 60 to 30 FPS
-    const frameInterval = 1000 / targetFPS;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-
-    const handleResize = () => resize();
-    window.addEventListener("resize", handleResize, { passive: true });
-
-    const gridSize = 50;
-    let time = 0;
-
-    const animate = (currentTime: number) => {
-      animationId = requestAnimationFrame(animate);
-
-      const deltaTime = currentTime - lastTime;
-      if (deltaTime < frameInterval) return;
-
-      lastTime = currentTime - (deltaTime % frameInterval);
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "rgba(0, 212, 255, 0.1)";
-      ctx.lineWidth = 1;
-
-      // Draw grid - optimized
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-
-      // Reduced number of animated points
-      const points = 10; // Reduced from 20
-      for (let i = 0; i < points; i++) {
-        const x = (canvas.width / points) * i + ((time * 0.5) % gridSize);
-        const y = Math.sin(time * 0.001 + i) * 100 + canvas.height / 2;
-        const alpha = Math.sin(time * 0.005 + i) * 0.5 + 0.5;
-
-        ctx.beginPath();
-        ctx.arc(x, y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 212, 255, ${alpha * 0.6})`;
-        ctx.fill();
-      }
-
-      time += 16;
-    };
-
-    animate(0);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-10"
-      style={{ background: "#0A0A0A", willChange: "auto" }}
-    />
+    <div className="fixed inset-0 -z-10 overflow-hidden">
+      {/* Premium gradient background with subtle pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-black transition-colors duration-500" />
+
+      {/* Subtle grid pattern - More refined in light mode */}
+      <div
+        className="absolute inset-0 opacity-[0.02] dark:opacity-20 transition-opacity duration-500"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+        }}
+      />
+
+      {/* Premium accent gradient orbs - Light mode */}
+      <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-gradient-to-br from-primary-100/40 to-primary-200/20 rounded-full blur-3xl dark:hidden transition-opacity duration-500" />
+      <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-gradient-to-br from-purple-100/40 to-pink-100/20 rounded-full blur-3xl dark:hidden transition-opacity duration-500" />
+    </div>
   );
 }

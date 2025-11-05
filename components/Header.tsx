@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,7 +15,6 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Detect active section
       const sections = [
         "services",
         "pricing",
@@ -25,7 +25,6 @@ export default function Header() {
       const scrollPosition = window.scrollY + 150;
       let currentSection = "";
 
-      // Check each section to find which one is currently in view
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         const element = document.getElementById(section);
@@ -38,7 +37,6 @@ export default function Header() {
         }
       }
 
-      // If at top, default to first section or empty
       if (scrollPosition < 200) {
         currentSection = "";
       }
@@ -51,8 +49,8 @@ export default function Header() {
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -84,7 +82,6 @@ export default function Header() {
           behavior: "smooth",
         });
 
-        // Update active section after scroll
         setTimeout(() => {
           setActiveSection(targetId);
         }, 100);
@@ -95,50 +92,36 @@ export default function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.4 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-dark-bg/80 backdrop-blur-md border-b border-dark-border shadow-lg"
-          : "bg-transparent"
+        isScrolled ? "glass-strong shadow-lg" : "bg-transparent"
       }`}
     >
       <nav className="container mx-auto px-4 md:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-1 group">
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.6 }}
-              className="relative"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+              className="relative flex-shrink-0"
             >
-              {/* Logo Image - Replace with your actual logo */}
-              {/* Option 1: Use an image file */}
-              {/* <Image
-                src="/logo.png"
+              <Image
+                src="/Orizonix.png"
                 alt="Orizonix Logo"
-                width={48}
-                height={48}
-                className="w-12 h-12 object-contain"
-              /> */}
-
-              {/* Option 2: Gradient placeholder (current) */}
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center shadow-lg shadow-neon-blue/30 relative overflow-hidden">
-                <span className="text-2xl font-bold text-white relative z-10">
-                  O
-                </span>
-                {/* Animated shimmer */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </div>
-              {/* Animated glow effect */}
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-neon-blue to-neon-purple opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300" />
+                width={56}
+                height={56}
+                className="object-contain"
+                priority
+              />
             </motion.div>
-            <span className="text-2xl font-bold gradient-text hidden sm:block">
+            <span className="text-2xl font-cinzel font-bold text-gray-900 dark:text-white hidden sm:block tracking-tight">
               Orizonix
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
               const sectionId = link.href.replace("#", "");
               const isActive = activeSection === sectionId;
@@ -147,60 +130,72 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={handleLinkClick(link.href)}
-                  className={`relative transition-colors duration-300 group cursor-pointer ${
+                  className={`relative transition-colors duration-200 text-sm font-medium ${
                     isActive
-                      ? "text-neon-blue"
-                      : "text-gray-300 hover:text-neon-blue"
+                      ? "text-primary-600 dark:text-accent-dark"
+                      : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
                   {link.label}
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-neon-blue transition-all duration-300 ${
-                      isActive ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeIndicator"
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 dark:bg-accent-dark rounded-full"
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                 </a>
               );
             })}
+            <ThemeToggle />
             <motion.a
               href="https://wa.me/919898084143"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-neon-blue text-dark-bg font-semibold rounded-lg hover:bg-neon-cyan transition-colors duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 bg-primary-600 dark:bg-accent-dark text-white font-medium rounded-lg hover:bg-primary-700 dark:hover:bg-accent-dark/90 transition-colors duration-200 text-sm"
             >
               Get Started
             </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg bg-dark-surface border border-dark-border hover:border-neon-blue transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="w-6 h-6 flex flex-col justify-center gap-1.5">
-              <motion.span
-                animate={
-                  isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }
-                }
-                className="w-full h-0.5 bg-neon-blue rounded"
-              />
-              <motion.span
-                animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="w-full h-0.5 bg-neon-blue rounded"
-              />
-              <motion.span
-                animate={
-                  isMobileMenuOpen
-                    ? { rotate: -45, y: -8 }
-                    : { rotate: 0, y: 0 }
-                }
-                className="w-full h-0.5 bg-neon-blue rounded"
-              />
-            </div>
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg glass hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <div className="w-5 h-5 flex flex-col justify-center gap-1">
+                <motion.span
+                  animate={
+                    isMobileMenuOpen
+                      ? { rotate: 45, y: 6 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="w-full h-0.5 bg-gray-900 dark:bg-white rounded transition-colors"
+                />
+                <motion.span
+                  animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className="w-full h-0.5 bg-gray-900 dark:bg-white rounded transition-colors"
+                />
+                <motion.span
+                  animate={
+                    isMobileMenuOpen
+                      ? { rotate: -45, y: -6 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="w-full h-0.5 bg-gray-900 dark:bg-white rounded transition-colors"
+                />
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -210,10 +205,10 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               className="md:hidden mt-4 overflow-hidden"
             >
-              <div className="bg-dark-surface border border-dark-border rounded-lg p-4 space-y-3">
+              <div className="glass-strong rounded-xl p-4 space-y-2">
                 {navLinks.map((link) => {
                   const sectionId = link.href.replace("#", "");
                   const isActive = activeSection === sectionId;
@@ -222,10 +217,10 @@ export default function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={handleLinkClick(link.href)}
-                      className={`block py-2 transition-colors duration-300 border-b border-dark-border last:border-0 cursor-pointer ${
+                      className={`block py-2 px-3 rounded-lg transition-colors duration-200 ${
                         isActive
-                          ? "text-neon-blue font-semibold"
-                          : "text-gray-300 hover:text-neon-blue"
+                          ? "bg-primary-100 dark:bg-gray-800 text-primary-700 dark:text-accent-dark font-medium"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       }`}
                     >
                       {link.label}
@@ -239,7 +234,7 @@ export default function Header() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full text-center py-3 bg-neon-blue text-dark-bg font-semibold rounded-lg hover:bg-neon-cyan transition-colors duration-300"
+                  className="block w-full text-center py-3 bg-primary-600 dark:bg-accent-dark text-white font-medium rounded-lg hover:bg-primary-700 dark:hover:bg-accent-dark/90 transition-colors duration-200"
                 >
                   Get Started
                 </motion.a>
