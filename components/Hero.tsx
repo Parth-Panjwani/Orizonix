@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import AnimatedGradient from "./AnimatedGradient";
+import Image from "next/image";
 
 interface CounterProps {
   end: number;
@@ -19,10 +19,15 @@ function Counter({ end, suffix = "", duration = 2 }: CounterProps) {
 
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
+      const progress = Math.min(
+        (currentTime - startTime) / (duration * 1000),
+        1
+      );
 
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
+      const currentValue = Math.floor(
+        startValue + (end - startValue) * easeOutQuart
+      );
       setCount(currentValue);
 
       if (progress < 1) {
@@ -54,7 +59,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="z-10"
+          className="z-10 order-2 md:order-1"
         >
           {/* Badge */}
           <motion.div
@@ -102,6 +107,26 @@ export default function Hero() {
               through marketing excellence.
             </span>
           </motion.p>
+
+          {/* Mobile Image - Above Buttons */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="relative h-[250px] sm:h-[300px] w-full max-w-sm mx-auto mb-6 md:hidden"
+          >
+            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4 shadow-lg">
+              <Image
+                src="/hero.png"
+                alt="Digital Marketing & Business Growth"
+                fill
+                className="object-contain"
+                priority
+                quality={100}
+                unoptimized
+              />
+            </div>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
@@ -154,72 +179,23 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right: Premium Animated Visual */}
+        {/* Right: Isometric Illustration - Desktop Only */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative h-[300px] sm:h-[400px] md:h-[500px] w-full max-w-md mx-auto md:max-w-none"
+          className="hidden md:flex relative h-[550px] lg:h-[650px] xl:h-[700px] w-full max-w-2xl mx-auto md:max-w-none order-2 items-center justify-center"
         >
-          {/* Animated Gradient Background */}
-          <AnimatedGradient />
-
-          {/* Premium Geometric Shapes */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Main Orb - Glassmorphism */}
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                rotate: [0, 5, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80"
-            >
-              <div className="absolute inset-0 rounded-full glass border-2 border-primary-200 dark:border-primary-800/50" />
-              <div className="absolute inset-4 rounded-full glass border border-primary-300 dark:border-primary-700/50" />
-
-              {/* Center gradient dot */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.6, 1, 0.6],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 dark:from-accent-dark dark:to-primary-400 blur-xl"
-              />
-            </motion.div>
-
-            {/* Floating decorative elements */}
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{
-                  y: [0, -20, 0],
-                  x: [0, Math.sin(i) * 15, 0],
-                  opacity: [0.4, 0.8, 0.4],
-                }}
-                transition={{
-                  duration: 4 + i,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeInOut",
-                }}
-                className="absolute w-3 h-3 rounded-full bg-primary-400 dark:bg-accent-dark"
-                style={{
-                  left: `${20 + i * 30}%`,
-                  top: `${30 + (i % 2) * 40}%`,
-                  boxShadow: "0 0 20px rgba(102, 126, 234, 0.5)",
-                }}
-              />
-            ))}
+          <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4 md:p-6 shadow-xl">
+            <Image
+              src="/hero.png"
+              alt="Digital Marketing & Business Growth"
+              fill
+              className="object-contain"
+              priority
+              quality={100}
+              unoptimized
+            />
           </div>
         </motion.div>
       </div>

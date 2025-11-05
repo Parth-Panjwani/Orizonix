@@ -100,11 +100,11 @@ export default function Header() {
       <nav className="container mx-auto px-4 md:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1 group">
+          <Link href="/" className="flex items-center gap-5 group">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-              className="relative flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-center p-2 shadow-sm"
+              className="relative flex-shrink-0 w-12 h-12 rounded-lg bg-white border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-center p-2 shadow-sm"
             >
               <Image
                 src="/Orizonix.png"

@@ -234,7 +234,7 @@ export default function Contact() {
           ) : (
             <div className="w-full">
               <iframe
-                src="https://calendly.com/theparthpanjwani/30min"
+                src="https://calendly.com/theorizonix/30min"
                 width="100%"
                 height="700"
                 frameBorder="0"
