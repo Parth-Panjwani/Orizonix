@@ -76,9 +76,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-gray-900 dark:text-white"
           >
-            <span className="block mb-2">
-              We Craft Brands. Build Systems.
-            </span>
+            <span className="block mb-2">We Craft Brands. Build Systems.</span>
             <span className="block gradient-text">Automate Growth.</span>
           </motion.h1>
 
@@ -89,11 +87,19 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 leading-relaxed max-w-xl"
           >
-            Where <span className="gradient-text font-semibold">Creative Strategy</span> meets{" "}
-            <span className="gradient-text font-semibold">Digital Innovation</span>.
+            Where{" "}
+            <span className="gradient-text font-semibold">
+              Creative Strategy
+            </span>{" "}
+            meets{" "}
+            <span className="gradient-text font-semibold">
+              Digital Innovation
+            </span>
+            .
             <br className="hidden sm:block" />
             <span className="block sm:inline">
-              We craft brands, build digital experiences, and drive growth through marketing excellence.
+              We craft brands, build digital experiences, and drive growth
+              through marketing excellence.
             </span>
           </motion.p>
 
@@ -136,8 +142,8 @@ export default function Hero() {
               { label: "Clients", value: 100, suffix: "+" },
               { label: "Success", value: 98, suffix: "%" },
             ].map((stat, index) => (
-              <div key={index} className="text-left">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text mb-1">
+              <div key={index} className="text-center md:text-left">
+                <div className="text-3xl sm:text-4xl md:text-2xl lg:text-3xl font-bold gradient-text mb-1">
                   <Counter end={stat.value} suffix={stat.suffix} />
                 </div>
                 <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -175,7 +181,7 @@ export default function Hero() {
             >
               <div className="absolute inset-0 rounded-full glass border-2 border-primary-200 dark:border-primary-800/50" />
               <div className="absolute inset-4 rounded-full glass border border-primary-300 dark:border-primary-700/50" />
-              
+
               {/* Center gradient dot */}
               <motion.div
                 animate={{

@@ -44,7 +44,7 @@ export default function ServiceCard({
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.1 }}
         whileHover={{ scale: 1.05 }}
-        className="mb-4 text-primary-600 dark:text-accent-dark"
+        className="mb-4 text-primary-600 dark:text-accent-dark flex justify-center md:justify-start"
       >
         {icon}
       </motion.div>
@@ -55,7 +55,7 @@ export default function ServiceCard({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.2 }}
-        className="text-xl font-bold text-gray-900 dark:text-white mb-2"
+        className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 text-center md:text-left"
       >
         {title}
       </motion.h3>
@@ -66,7 +66,7 @@ export default function ServiceCard({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.3 }}
-        className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+        className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-center md:text-left"
       >
         {description}
       </motion.p>

@@ -81,7 +81,7 @@ export default function PricingCard({
       )}
 
       {/* Content Container - Flex Column */}
-      <div className="flex flex-col flex-grow p-6 sm:p-8 relative z-10">
+      <div className="flex flex-col flex-grow p-6 sm:p-8 relative z-10 text-center md:text-left">
         {/* Title */}
         <motion.h3
           initial={{ opacity: 0 }}
@@ -116,7 +116,7 @@ export default function PricingCard({
                 duration: 0.3,
                 delay: delay + 0.3 + index * 0.05,
               }}
-              className="flex items-start"
+              className="flex items-start justify-center md:justify-start"
             >
               <span className="text-primary-600 dark:text-accent-dark mr-2 font-bold mt-0.5 flex-shrink-0">
                 ✓

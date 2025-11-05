@@ -104,7 +104,7 @@ export default function Header() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-              className="relative flex-shrink-0"
+              className="relative flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-center p-2 shadow-sm"
             >
               <Image
                 src="/Orizonix.png"
@@ -151,7 +151,9 @@ export default function Header() {
                 </a>
               );
             })}
-            <ThemeToggle />
+            <div className="w-12 h-12 flex items-center justify-center">
+              <ThemeToggle />
+            </div>
             <motion.a
               href="https://wa.me/919898084143"
               target="_blank"
@@ -166,10 +168,12 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-3">
-            <ThemeToggle />
+            <div className="w-12 h-12 flex items-center justify-center">
+              <ThemeToggle />
+            </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg glass hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200/60 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center"
               aria-label="Toggle menu"
             >
               <div className="w-5 h-5 flex flex-col justify-center gap-1">

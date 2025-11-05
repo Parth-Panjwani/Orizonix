@@ -44,7 +44,7 @@ export default function FeatureCard({
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.1 }}
         whileHover={{ scale: 1.05 }}
-        className="mb-4 text-primary-600 dark:text-accent-dark inline-block"
+        className="mb-4 text-primary-600 dark:text-accent-dark flex justify-center"
       >
         {icon}
       </motion.div>
@@ -55,7 +55,7 @@ export default function FeatureCard({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.2 }}
-        className="text-lg font-bold text-gray-900 dark:text-white mb-2"
+        className="text-base md:text-lg font-bold text-gray-900 dark:text-white mb-2 text-center"
       >
         {title}
       </motion.h3>
@@ -66,7 +66,7 @@ export default function FeatureCard({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: delay + 0.3 }}
-        className="text-sm text-gray-600 dark:text-gray-400"
+        className="text-sm text-gray-600 dark:text-gray-400 text-center"
       >
         {description}
       </motion.p>
