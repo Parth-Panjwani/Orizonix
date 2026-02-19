@@ -1,24 +1,30 @@
 import type { Metadata } from 'next'
-import { Inter, Cinzel } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
   preload: true,
+  variable: '--font-inter',
 })
 
-const cinzel = Cinzel({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-cinzel',
+  variable: '--font-space-grotesk',
 })
 
 export const metadata: Metadata = {
-  title: "Orizonix - Creative-Tech Agency",
-  description: "We Craft Brands. Build Systems. Automate Growth.",
+  title: "Orizonix — Revenue Growth Systems Partner",
+  description: "We design and execute scalable growth systems that help ambitious brands acquire customers, increase ROI, and grow sustainably. Performance marketing, automation, and brand strategy.",
+  keywords: ["growth systems", "performance marketing", "lead generation", "revenue growth", "digital marketing agency", "marketing automation", "paid ads", "conversion optimization"],
+  openGraph: {
+    title: "Orizonix — Revenue Growth Systems Partner",
+    description: "Scalable growth systems for ambitious brands. Paid media, automation, CRO, and brand strategy.",
+    type: "website",
+  },
   icons: {
     icon: [{ url: "/favicon.ico", sizes: "any" }],
     apple: [
@@ -35,11 +41,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${cinzel.variable}`}>
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="en">
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
+        {children}
       </body>
     </html>
   )
 }
-

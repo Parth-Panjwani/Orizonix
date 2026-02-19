@@ -1,202 +1,198 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useState, useRef } from "react";
 
-interface CounterProps {
-  end: number;
-  suffix?: string;
-  duration?: number;
-}
-
-function Counter({ end, suffix = "", duration = 2 }: CounterProps) {
+/* ── Animated Counter ── */
+function AnimatedCounter({ end, suffix = "" }: { end: number; suffix: string }) {
   const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    let startTime: number;
-    const startValue = 0;
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          let startTime: number;
+          const animate = (t: number) => {
+            if (!startTime) startTime = t;
+            const progress = Math.min((t - startTime) / 2000, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 4);
+            setCount(Math.floor(end * easeOut));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [end]);
 
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min(
-        (currentTime - startTime) / (duration * 1000),
-        1
-      );
-
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentValue = Math.floor(
-        startValue + (end - startValue) * easeOutQuart
-      );
-      setCount(currentValue);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    const timer = setTimeout(() => {
-      requestAnimationFrame(animate);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [end, duration]);
-
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  );
+  return <span ref={ref}>{count}{suffix}</span>;
 }
+
+/* ── Staggered word animation ── */
+const headlineWords = ["Turn", "Attention", "Into"];
+const gradientWords = ["Predictable", "Revenue"];
+
+const trustStats = [
+  { value: 150, suffix: "+", label: "Campaigns" },
+  { value: 40, suffix: "+", label: "Brands" },
+  { value: 4.2, suffix: "x", label: "Avg ROI" },
+];
+
+/* ── Floating data nodes ── */
+const dataNodes = [
+  { x: "12%", y: "25%", delay: 0, size: 4 },
+  { x: "85%", y: "20%", delay: 1.5, size: 3 },
+  { x: "75%", y: "70%", delay: 3, size: 5 },
+  { x: "20%", y: "75%", delay: 2, size: 3 },
+  { x: "55%", y: "15%", delay: 4, size: 4 },
+];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-20">
-      <div className="container mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
-        {/* Left: Text Content */}
+    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-4 md:px-8 overflow-hidden section-dark">
+      {/* Gradient Mesh Background */}
+      <div className="hero-mesh" />
+
+      {/* Headline Radial Glow */}
+      <div className="headline-glow" />
+
+      {/* Animated SVG Graph Line */}
+      <svg
+        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.04] pointer-events-none"
+        viewBox="0 0 1200 200"
+        preserveAspectRatio="none"
+      >
+        <motion.path
+          d="M0 180 Q100 160 200 140 T400 100 T600 80 T800 50 T1000 30 T1200 10"
+          fill="none"
+          stroke="#3B82F6"
+          strokeWidth="2"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 3, ease: "easeOut", delay: 0.5 }}
+        />
+      </svg>
+
+      {/* Floating Data Nodes */}
+      {dataNodes.map((node, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-blue-500/20"
+          style={{
+            left: node.x,
+            top: node.y,
+            width: node.size,
+            height: node.size,
+          }}
+          animate={{
+            y: [0, -12, 4, -8, 0],
+            opacity: [0.2, 0.5, 0.3, 0.6, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            delay: node.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto max-w-4xl text-center">
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-sm md:text-base font-medium text-blue-400 tracking-widest uppercase mb-6"
+        >
+          Revenue Growth Systems Partner
+        </motion.p>
+
+        {/* Headline — staggered words */}
+        <h1 className="text-hero font-heading text-white mb-6 leading-tight">
+          {headlineWords.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+              className="inline-block mr-[0.3em]"
+            >
+              {word}
+            </motion.span>
+          ))}
+          <br />
+          {gradientWords.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+              className="inline-block mr-[0.3em] gradient-text"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h1>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="text-[17px] md:text-lg text-zinc-400 mb-10 leading-relaxed max-w-2xl mx-auto"
+        >
+          We design and execute scalable growth systems that help ambitious
+          brands acquire customers, increase ROI, and grow sustainably.
+        </motion.p>
+
+        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="z-10 order-2 md:order-1"
+          transition={{ duration: 0.5, delay: 0.85 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-gray-200 dark:border-gray-700 mb-6"
+          <a
+            href="#contact"
+            className="px-8 py-4 btn-primary rounded-lg text-base font-semibold"
           >
-            <span className="w-2 h-2 bg-primary-600 dark:bg-accent-dark rounded-full animate-pulse" />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              Creative-Tech Agency
-            </span>
-          </motion.div>
-
-          {/* Main Heading - 2 lines */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-gray-900 dark:text-white"
+            Book a Strategy Call →
+          </a>
+          <a
+            href="#case-studies"
+            className="px-8 py-4 btn-secondary rounded-lg text-base"
           >
-            <span className="block mb-2">We Craft Brands. Build Systems.</span>
-            <span className="block gradient-text">Automate Growth.</span>
-          </motion.h1>
-
-          {/* Subheading */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 leading-relaxed max-w-xl"
-          >
-            Where{" "}
-            <span className="gradient-text font-semibold">
-              Creative Strategy
-            </span>{" "}
-            meets{" "}
-            <span className="gradient-text font-semibold">
-              Digital Innovation
-            </span>
-            .
-            <br className="hidden sm:block" />
-            <span className="block sm:inline">
-              We craft brands, build digital experiences, and drive growth
-              through marketing excellence.
-            </span>
-          </motion.p>
-
-          {/* Mobile Image - Above Buttons */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="relative h-[250px] sm:h-[300px] w-full max-w-sm mx-auto mb-6 md:hidden"
-          >
-            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4 shadow-lg">
-              <Image
-                src="/hero.png"
-                alt="Digital Marketing & Business Growth"
-                fill
-                className="object-contain"
-                priority
-                quality={100}
-                unoptimized
-              />
-            </div>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8"
-          >
-            <motion.a
-              href="https://wa.me/919898084143"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 sm:px-8 py-3 sm:py-4 btn-premium text-white font-semibold rounded-lg transition-all duration-200 text-center text-sm sm:text-base"
-            >
-              Let&apos;s Build Together →
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 sm:px-8 py-3 sm:py-4 glass border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-semibold rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 text-center text-sm sm:text-base"
-            >
-              Book a Free Strategy Call
-            </motion.a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-800"
-          >
-            {[
-              { label: "Projects", value: 50, suffix: "+" },
-              { label: "Clients", value: 100, suffix: "+" },
-              { label: "Success", value: 98, suffix: "%" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center md:text-left">
-                <div className="text-3xl sm:text-4xl md:text-2xl lg:text-3xl font-bold gradient-text mb-1">
-                  <Counter end={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
+            View Case Studies
+          </a>
         </motion.div>
 
-        {/* Right: Isometric Illustration - Desktop Only */}
+        {/* Trust Strip — 3-col grid always */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="hidden md:flex relative h-[550px] lg:h-[650px] xl:h-[700px] w-full max-w-2xl mx-auto md:max-w-none order-2 items-center justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          className="grid grid-cols-3 gap-4 max-w-md mx-auto"
         >
-          <div className="relative w-full h-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 p-4 md:p-6 shadow-xl">
-            <Image
-              src="/hero.png"
-              alt="Digital Marketing & Business Growth"
-              fill
-              className="object-contain"
-              priority
-              quality={100}
-              unoptimized
-            />
-          </div>
+          {trustStats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-stat font-heading text-white">
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+              </div>
+              <div className="text-xs md:text-sm text-zinc-500 mt-1 uppercase tracking-wider">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
