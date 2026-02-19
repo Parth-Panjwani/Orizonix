@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ end, suffix = "" }: { end: number; suffix: string }) {
@@ -48,25 +48,61 @@ const trustStats = [
 
 /* ── Floating data nodes ── */
 const dataNodes = [
-  { x: "12%", y: "25%", delay: 0, size: 4 },
-  { x: "85%", y: "20%", delay: 1.5, size: 3 },
-  { x: "75%", y: "70%", delay: 3, size: 5 },
-  { x: "20%", y: "75%", delay: 2, size: 3 },
-  { x: "55%", y: "15%", delay: 4, size: 4 },
+  { x: "10%", y: "22%", delay: 0, size: 6 },
+  { x: "88%", y: "18%", delay: 1.5, size: 5 },
+  { x: "78%", y: "72%", delay: 3, size: 7 },
+  { x: "15%", y: "78%", delay: 2, size: 5 },
+  { x: "52%", y: "12%", delay: 4, size: 6 },
+  { x: "35%", y: "85%", delay: 2.5, size: 4 },
+  { x: "65%", y: "30%", delay: 3.5, size: 4 },
 ];
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setIsHovering(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-4 md:px-8 overflow-hidden section-dark">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-4 md:px-8 overflow-hidden section-dark"
+    >
       {/* Gradient Mesh Background */}
       <div className="hero-mesh" />
+
+      {/* Cursor-reactive Radial Glow */}
+      <div
+        className="hero-cursor-glow hidden md:block"
+        style={{
+          left: mousePos.x - 300,
+          top: mousePos.y - 300,
+          opacity: isHovering ? 1 : 0,
+          transform: `translate3d(0, 0, 0)`,
+        }}
+      />
 
       {/* Headline Radial Glow */}
       <div className="headline-glow" />
 
       {/* Animated SVG Graph Line */}
       <svg
-        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.04] pointer-events-none"
+        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.05] pointer-events-none"
         viewBox="0 0 1200 200"
         preserveAspectRatio="none"
       >
@@ -85,19 +121,21 @@ export default function Hero() {
       {dataNodes.map((node, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-blue-500/20"
+          className="absolute rounded-full"
           style={{
             left: node.x,
             top: node.y,
             width: node.size,
             height: node.size,
+            background: "radial-gradient(circle, rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.15) 100%)",
+            boxShadow: "0 0 8px rgba(59,130,246,0.2)",
           }}
           animate={{
-            y: [0, -12, 4, -8, 0],
-            opacity: [0.2, 0.5, 0.3, 0.6, 0.2],
+            y: [0, -16, 6, -10, 0],
+            opacity: [0.25, 0.6, 0.35, 0.7, 0.25],
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             delay: node.delay,
             ease: "easeInOut",
@@ -118,11 +156,11 @@ export default function Hero() {
         </motion.p>
 
         {/* Headline — staggered words */}
-        <h1 className="text-hero font-heading text-white mb-6 leading-tight">
+        <h1 className="text-hero font-heading text-white mb-6 leading-none">
           {headlineWords.map((word, i) => (
             <motion.span
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               className="inline-block mr-[0.3em]"
@@ -134,10 +172,13 @@ export default function Hero() {
           {gradientWords.map((word, i) => (
             <motion.span
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
               className="inline-block mr-[0.3em] gradient-text"
+              style={{
+                filter: "drop-shadow(0 0 30px rgba(37,99,235,0.25))",
+              }}
             >
               {word}
             </motion.span>

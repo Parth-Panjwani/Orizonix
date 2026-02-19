@@ -41,10 +41,13 @@ module.exports = {
         },
       },
       fontSize: {
-        'hero': ['clamp(3rem, 6vw, 4.5rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '600' }],
-        'section': ['clamp(2.25rem, 4vw, 3.25rem)', { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'hero': ['clamp(3.25rem, 6.5vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' }],
+        'section': ['clamp(2.5rem, 4.5vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '700' }],
         'card-title': ['clamp(1.125rem, 2vw, 1.375rem)', { lineHeight: '1.3', fontWeight: '600' }],
-        'stat': ['clamp(2rem, 3.5vw, 2.625rem)', { lineHeight: '1.1', fontWeight: '600' }],
+        'stat': ['clamp(2.25rem, 4vw, 3rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '700' }],
+      },
+      borderRadius: {
+        'card': '12px',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

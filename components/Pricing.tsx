@@ -57,7 +57,7 @@ const cardVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, delay: i * 0.1, ease: "easeOut" },
+    transition: { duration: 0.45, delay: i * 0.12, ease: [0.4, 0, 0.2, 1] },
   }),
 };
 
@@ -109,6 +109,7 @@ function PricingCard({ tier, index }: { tier: typeof tiers[0]; index: number }) 
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
+      whileHover={tier.highlighted ? { y: -8, transition: { duration: 0.25 } } : { y: -4, transition: { duration: 0.25 } }}
       className={`relative rounded-xl flex flex-col h-full ${
         tier.highlighted
           ? "pricing-recommended glass-card"
@@ -116,7 +117,7 @@ function PricingCard({ tier, index }: { tier: typeof tiers[0]; index: number }) 
       }`}
     >
       {tier.badge && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-wider whitespace-nowrap">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-wider whitespace-nowrap shadow-[0_2px_12px_rgba(37,99,235,0.4)]">
           {tier.badge}
         </div>
       )}
@@ -155,7 +156,7 @@ function PricingCard({ tier, index }: { tier: typeof tiers[0]; index: number }) 
 
         <a
           href="#contact"
-          className={`block w-full text-center py-3.5 rounded-lg font-semibold text-[15px] transition-all duration-200 ${
+          className={`block w-full text-center py-3.5 rounded-lg font-semibold text-[15px] transition-all duration-250 ${
             tier.highlighted ? "btn-primary" : "btn-secondary"
           }`}
         >
