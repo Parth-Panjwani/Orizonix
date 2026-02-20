@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useReveal } from "@/hooks/useReveal";
 
 const painPoints = [
   {
@@ -51,60 +51,35 @@ const painPoints = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
-
 export default function Problem() {
+  const { ref, revealed } = useReveal();
+
   return (
     <section className="py-20 md:py-24 px-4 md:px-8 section-dark">
-      <div className="container mx-auto max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+      <div className="container mx-auto max-w-5xl" ref={ref}>
+        <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">The Problem</span>
           <h2 className="text-section font-heading text-white">
             Sound Familiar?
           </h2>
-        </motion.div>
+        </div>
 
-        {/* 2x2 grid always */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">
           {painPoints.map((point, index) => (
-            <motion.div
+            <div
               key={index}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="glass-card rounded-xl p-4 sm:p-6 md:p-8"
+              className={`glass-card rounded-xl p-4 sm:p-6 md:p-8 reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
             >
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1 + 0.15 }}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-4"
-              >
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-4">
                 {point.icon}
-              </motion.div>
+              </div>
               <h3 className="text-card-title font-heading text-white mb-2">
                 {point.title}
               </h3>
               <p className="text-[14px] sm:text-[16px] text-zinc-400 leading-relaxed">
                 {point.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

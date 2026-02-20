@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import { useReveal } from "@/hooks/useReveal";
 
 const steps = [
   {
@@ -94,6 +95,7 @@ export default function Process() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { ref: revealRef, revealed } = useReveal();
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -112,20 +114,14 @@ export default function Process() {
   }, []);
 
   return (
-    <section className="py-20 md:py-24 px-4 md:px-8 section-darker">
+    <section className="py-20 md:py-24 px-4 md:px-8 section-darker" ref={revealRef}>
       <div className="container mx-auto max-w-5xl" ref={sectionRef}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
+        <div className={`text-center mb-14 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Our Process</span>
           <h2 className="text-section font-heading text-white">
             How We Drive Growth
           </h2>
-        </motion.div>
+        </div>
 
         {/* Desktop: Interactive Horizontal Diagram */}
         <div className="hidden md:block">
@@ -170,13 +166,9 @@ export default function Process() {
 
             <div className="grid grid-cols-4 gap-6 relative">
               {steps.map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  custom={index}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  className="text-center cursor-pointer group"
+                  className={`text-center cursor-pointer group reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
                   onMouseEnter={() => setActiveStep(index)}
                   onMouseLeave={() => setActiveStep(null)}
                 >
@@ -224,7 +216,7 @@ export default function Process() {
                       </motion.p>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -252,13 +244,9 @@ export default function Process() {
 
             <div className="space-y-6">
               {steps.map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  custom={index}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  className="relative"
+                  className={`relative reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
                   onClick={() => setActiveStep(activeStep === index ? null : index)}
                 >
                   {/* Node dot */}
@@ -290,7 +278,7 @@ export default function Process() {
                       )}
                     </AnimatePresence>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

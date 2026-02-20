@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useReveal } from "@/hooks/useReveal";
 
 /* ── Animated Counter for Modal ── */
 function ModalCounter({ end, suffix = "" }: { end: string; suffix?: string }) {
@@ -329,17 +330,12 @@ function CaseStudyModal({
 
 export default function CaseStudies() {
   const [selectedStudy, setSelectedStudy] = useState<typeof caseStudies[0] | null>(null);
+  const { ref, revealed } = useReveal();
 
   return (
     <section id="case-studies" className="py-20 md:py-24 px-4 md:px-8 section-darker">
-      <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+      <div className="container mx-auto max-w-6xl" ref={ref}>
+        <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Results</span>
           <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Growth in Action
@@ -347,18 +343,13 @@ export default function CaseStudies() {
           <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             Real strategies. Measurable outcomes. Here&apos;s how we&apos;ve helped brands scale.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-3 md:gap-5">
           {caseStudies.map((study, index) => (
-            <motion.div
+            <div
               key={index}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="glass-card rounded-xl overflow-hidden flex flex-col"
+              className={`glass-card rounded-xl overflow-hidden flex flex-col reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
             >
               <div className="p-5 sm:p-6 pb-0">
                 <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-600/10 text-blue-400 rounded-full mb-4">
@@ -413,7 +404,7 @@ export default function CaseStudies() {
                   View Case Study →
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function Contact() {
+  const { ref, revealed } = useReveal();
   const [formStatus, setFormStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -59,14 +61,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 md:py-24 px-4 md:px-8 section-dark">
-      <div className="container mx-auto max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10"
-        >
+      <div className="container mx-auto max-w-2xl" ref={ref}>
+        <div className={`text-center mb-10 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Let&apos;s Talk</span>
           <h2 className="text-section font-heading text-white mb-4">
             Ready to Build Predictable Growth?
@@ -74,15 +70,9 @@ export default function Contact() {
           <p className="text-[16px] md:text-[17px] text-zinc-400">
             Tell us about your business. We&apos;ll show you what&apos;s possible.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="glass-card rounded-xl p-5 sm:p-6 md:p-8"
-        >
+        <div className={`glass-card rounded-xl p-5 sm:p-6 md:p-8 reveal reveal-delay-1 ${revealed ? "revealed" : ""}`}>
           <form onSubmit={handleSubmit} className="space-y-5">
             {formStatus.message && (
               <motion.div
@@ -200,7 +190,7 @@ export default function Contact() {
               )}
             </button>
           </form>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

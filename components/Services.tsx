@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useReveal } from "@/hooks/useReveal";
 
 const servicePillars = [
   {
@@ -55,26 +55,13 @@ const servicePillars = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
-
 export default function Services() {
+  const { ref, revealed } = useReveal();
+
   return (
     <section id="services" className="py-20 md:py-24 px-4 md:px-8 section-dark">
-      <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+      <div className="container mx-auto max-w-6xl" ref={ref}>
+        <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">What We Deliver</span>
           <h2 className="text-section font-heading text-white mb-4">
             Outcome-Based Services
@@ -82,31 +69,19 @@ export default function Services() {
           <p className="text-[16px] md:text-[17px] text-zinc-400 max-w-xl mx-auto">
             Every service connects directly to revenue growth. No vanity work.
           </p>
-        </motion.div>
+        </div>
 
-        {/* 2-col mobile, 3-col desktop */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
           {servicePillars.map((pillar, index) => (
-            <motion.div
+            <div
               key={index}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className={`glass-card rounded-xl p-4 sm:p-6 md:p-8 flex flex-col ${
+              className={`glass-card rounded-xl p-4 sm:p-6 md:p-8 flex flex-col reveal reveal-delay-${index + 1} ${
                 index === 2 ? "col-span-2 md:col-span-1" : ""
-              }`}
+              } ${revealed ? "revealed" : ""}`}
             >
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1 + 0.15 }}
-                className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-5"
-              >
+              <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-5">
                 {pillar.icon}
-              </motion.div>
+              </div>
 
               <h3 className="text-card-title font-heading text-white mb-4">
                 {pillar.label}
@@ -128,7 +103,7 @@ export default function Services() {
                   {pillar.outcome}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

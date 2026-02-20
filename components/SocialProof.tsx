@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useReveal } from "@/hooks/useReveal";
 import { useEffect, useState, useRef } from "react";
 
 function AnimatedStat({ end, suffix = "" }: { end: number; suffix?: string }) {
@@ -63,27 +63,14 @@ const testimonials = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
-
 export default function SocialProof() {
+  const { ref, revealed } = useReveal();
+
   return (
     <section className="py-20 md:py-24 px-4 md:px-8 section-dark">
-      <div className="container mx-auto max-w-5xl">
+      <div className="container mx-auto max-w-5xl" ref={ref}>
         {/* Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-3 gap-4 sm:gap-8 py-8 sm:py-10 px-4 sm:px-8 md:px-12 glass-card rounded-xl mb-14"
-        >
+        <div className={`grid grid-cols-3 gap-4 sm:gap-8 py-8 sm:py-10 px-4 sm:px-8 md:px-12 glass-card rounded-xl mb-14 reveal ${revealed ? "revealed" : ""}`}>
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-stat font-heading text-white mb-1">
@@ -94,33 +81,22 @@ export default function SocialProof() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Testimonials Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10"
-        >
+        <div className={`text-center mb-10 reveal reveal-delay-1 ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Testimonials</span>
           <h2 className="text-section font-heading text-white">
             What Clients Say
           </h2>
-        </motion.div>
+        </div>
 
         {/* Testimonial Cards */}
         <div className="grid md:grid-cols-3 gap-3 md:gap-5">
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <div
               key={index}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="glass-card rounded-xl p-5 sm:p-6 md:p-8 flex flex-col"
+              className={`glass-card rounded-xl p-5 sm:p-6 md:p-8 flex flex-col reveal reveal-delay-${index + 2} ${revealed ? "revealed" : ""}`}
             >
               <svg
                 className="w-8 h-8 text-blue-500/30 mb-4"
@@ -142,7 +118,7 @@ export default function SocialProof() {
                   {testimonial.company}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
