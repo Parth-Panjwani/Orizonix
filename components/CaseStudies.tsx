@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* ── Animated Counter for Modal ── */
 function ModalCounter({ end, suffix = "" }: { end: string; suffix?: string }) {
@@ -143,7 +143,7 @@ function CaseStudyModal({
 }) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Focus trap
+  // Focus trap + body lock
   useEffect(() => {
     const el = modalRef.current;
     if (!el) return;
@@ -193,126 +193,136 @@ function CaseStudyModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25 }}
-        className="modal-backdrop"
+        className="fixed inset-0 z-[100]"
+        style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
         onClick={onClose}
       />
 
-      {/* Modal Content */}
-      <motion.div
-        ref={modalRef}
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="modal-content"
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Case Study: ${study.title}`}
-      >
-        <div className="p-6 md:p-8">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-6">
-            <div>
-              <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-600/10 text-blue-400 rounded-full mb-3">
-                {study.tag}
-              </span>
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">
-                {study.title}
-              </h3>
-              <p className="text-sm text-zinc-500 mt-1">
-                Results achieved in {study.period}
+      {/* Modal Centering Wrapper */}
+      <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
+        <motion.div
+          ref={modalRef}
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 10 }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          className="pointer-events-auto w-full max-w-[700px] max-h-[85vh] overflow-y-auto rounded-2xl"
+          style={{
+            background: "var(--modal-bg, linear-gradient(180deg, rgba(17,24,39,0.98) 0%, rgba(11,15,26,0.98) 100%))",
+            border: "1px solid var(--border-card)",
+            boxShadow: "0 24px 80px rgba(0,0,0,0.4), 0 0 40px rgba(37,99,235,0.08)",
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Case Study: ${study.title}`}
+        >
+          <div className="p-6 md:p-8">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-600/10 text-blue-400 rounded-full mb-3">
+                  {study.tag}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-heading font-bold" style={{ color: "var(--text-primary)" }}>
+                  {study.title}
+                </h3>
+                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
+                  Results achieved in {study.period}
+                </p>
+              </div>
+              <button
+                onClick={onClose}
+                className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 flex-shrink-0"
+                style={{ background: "var(--surface-hover)", color: "var(--text-muted)" }}
+                aria-label="Close modal"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Challenge */}
+            <div className="mb-6">
+              <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
+                Challenge
+              </p>
+              <p className="text-[15px] leading-relaxed" style={{ color: "var(--text-body)" }}>
+                {study.challenge}
               </p>
             </div>
-            <button
-              onClick={onClose}
-              className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors duration-200 text-zinc-400 hover:text-white flex-shrink-0"
-              aria-label="Close modal"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          </div>
 
-          {/* Challenge */}
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
-              Challenge
-            </p>
-            <p className="text-[15px] text-zinc-300 leading-relaxed">
-              {study.challenge}
-            </p>
-          </div>
+            {/* Strategy */}
+            <div className="mb-6">
+              <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
+                Strategy
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {study.strategy.map((s, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.08 }}
+                    className="flex items-center gap-2 text-[14px]"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
+                    <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
+                    {s}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
-          {/* Strategy */}
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
-              Strategy
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              {study.strategy.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08 }}
-                  className="flex items-center gap-2 text-[14px] text-zinc-400"
-                >
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
-                  {s}
-                </motion.div>
-              ))}
+            {/* Implementation */}
+            <div className="mb-6">
+              <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
+                Implementation
+              </p>
+              <p className="text-[14px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                {study.implementation}
+              </p>
+            </div>
+
+            {/* Performance Graph */}
+            <div className="mb-6 rounded-xl p-4" style={{ background: "var(--surface-glass)", border: "1px solid var(--border-subtle)" }}>
+              <p className="text-xs uppercase tracking-wider mb-2" style={{ color: "var(--text-muted)" }}>
+                Performance Trend
+              </p>
+              <MiniGraph />
+            </div>
+
+            {/* Results — Large Metric Cards */}
+            <div className="mb-2">
+              <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-3">
+                Results ({study.period})
+              </p>
+              <div className="grid grid-cols-3 gap-3">
+                {study.results.map((result, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    className="bg-blue-600/[0.06] border border-blue-500/10 rounded-xl p-4 text-center"
+                  >
+                    <div className="text-2xl md:text-3xl font-heading font-bold mb-1" style={{ color: "var(--text-primary)" }}>
+                      <ModalCounter
+                        end={result.metric}
+                        suffix={result.metric.includes("x") ? "x" : result.metric.includes("%") ? "%" : ""}
+                      />
+                    </div>
+                    <div className="text-[11px] leading-tight uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>
+                      {result.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Implementation */}
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">
-              Implementation
-            </p>
-            <p className="text-[14px] text-zinc-400 leading-relaxed">
-              {study.implementation}
-            </p>
-          </div>
-
-          {/* Performance Graph */}
-          <div className="mb-6 rounded-xl bg-white/[0.02] border border-white/[0.04] p-4">
-            <p className="text-xs uppercase tracking-wider text-zinc-500 mb-2">
-              Performance Trend
-            </p>
-            <MiniGraph />
-          </div>
-
-          {/* Results — Large Metric Cards */}
-          <div className="mb-2">
-            <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-3">
-              Results ({study.period})
-            </p>
-            <div className="grid grid-cols-3 gap-3">
-              {study.results.map((result, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  className="bg-blue-600/[0.06] border border-blue-500/10 rounded-xl p-4 text-center"
-                >
-                  <div className="text-2xl md:text-3xl font-heading font-bold text-white mb-1">
-                    <ModalCounter
-                      end={result.metric}
-                      suffix={result.metric.includes("x") ? "x" : result.metric.includes("%") ? "%" : ""}
-                    />
-                  </div>
-                  <div className="text-[11px] text-zinc-500 leading-tight uppercase tracking-wide">
-                    {result.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }
@@ -331,10 +341,10 @@ export default function CaseStudies() {
           className="text-center mb-12"
         >
           <span className="section-label mb-3 block">Results</span>
-          <h2 className="text-section font-heading text-white mb-4">
+          <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Growth in Action
           </h2>
-          <p className="text-[16px] md:text-[17px] text-zinc-400 max-w-xl mx-auto">
+          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             Real strategies. Measurable outcomes. Here&apos;s how we&apos;ve helped brands scale.
           </p>
         </motion.div>
@@ -354,25 +364,25 @@ export default function CaseStudies() {
                 <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-600/10 text-blue-400 rounded-full mb-4">
                   {study.tag}
                 </span>
-                <h3 className="text-card-title font-heading text-white mb-3">
+                <h3 className="text-card-title font-heading font-bold mb-3" style={{ color: "var(--text-primary)" }}>
                   {study.title}
                 </h3>
               </div>
 
               <div className="px-5 sm:px-6 pb-4 flex-grow">
-                <p className="text-xs uppercase tracking-wider text-zinc-500 mb-1.5">
+                <p className="text-xs uppercase tracking-wider mb-1.5" style={{ color: "var(--text-muted)" }}>
                   Challenge
                 </p>
-                <p className="text-[14px] sm:text-[15px] text-zinc-400 leading-relaxed mb-4">
+                <p className="text-[14px] sm:text-[15px] leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
                   {study.challenge}
                 </p>
 
-                <p className="text-xs uppercase tracking-wider text-zinc-500 mb-1.5">
+                <p className="text-xs uppercase tracking-wider mb-1.5" style={{ color: "var(--text-muted)" }}>
                   Strategy
                 </p>
                 <ul className="space-y-1 mb-4">
                   {study.strategy.map((s, i) => (
-                    <li key={i} className="text-[14px] sm:text-[15px] text-zinc-400 flex items-center gap-2">
+                    <li key={i} className="text-[14px] sm:text-[15px] flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
                       <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
                       {s}
                     </li>
@@ -380,8 +390,8 @@ export default function CaseStudies() {
                 </ul>
               </div>
 
-              <div className="border-t border-white/[0.06] p-5 sm:p-6 bg-blue-600/[0.03]">
-                <p className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
+              <div className="p-5 sm:p-6 bg-blue-600/[0.03]" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                <p className="text-xs uppercase tracking-wider mb-3" style={{ color: "var(--text-muted)" }}>
                   Results ({study.period})
                 </p>
                 <div className="grid grid-cols-3 gap-3 mb-4">
@@ -390,7 +400,7 @@ export default function CaseStudies() {
                       <div className="text-lg sm:text-xl font-heading font-bold text-blue-400">
                         {result.metric}
                       </div>
-                      <div className="text-[10px] sm:text-[11px] text-zinc-500 leading-tight mt-1">
+                      <div className="text-[10px] sm:text-[11px] leading-tight mt-1" style={{ color: "var(--text-muted)" }}>
                         {result.label}
                       </div>
                     </div>

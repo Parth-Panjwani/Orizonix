@@ -1,48 +1,64 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export default function CinematicLoader({ onComplete }: { onComplete: () => void }) {
   const [visible, setVisible] = useState(true);
-  const hasRun = useRef(false);
+  const [skip, setSkip] = useState(false);
+  const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
-    // Skip if cached
-    if (sessionStorage.getItem("orizonix-loaded")) {
-      setVisible(false);
-      onComplete();
-      return;
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    // Skip if already loaded this session
+    try {
+      if (sessionStorage.getItem("orizonix-loaded")) {
+        setSkip(true);
+        setVisible(false);
+        onCompleteRef.current();
+        return;
+      }
+    } catch {
+      // sessionStorage unavailable — proceed with loader
     }
 
     // Respect reduced motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const duration = prefersReducedMotion ? 200 : 1400;
 
-    hasRun.current = true;
     const timer = setTimeout(() => {
       setVisible(false);
-      sessionStorage.setItem("orizonix-loaded", "1");
-      setTimeout(onComplete, 300); // wait for exit animation
+      try {
+        sessionStorage.setItem("orizonix-loaded", "1");
+      } catch {
+        // ignore
+      }
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, []);
 
-  if (!hasRun.current && typeof window !== "undefined" && sessionStorage.getItem("orizonix-loaded")) {
-    return null;
-  }
+  // Call onComplete after exit animation finishes
+  const handleExitComplete = useCallback(() => {
+    onCompleteRef.current();
+  }, []);
+
+  // Already loaded — render nothing
+  if (skip) return null;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={handleExitComplete}>
       {visible && (
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
-          style={{ background: "#0B0F1A" }}
+          style={{ background: "var(--bg-primary)" }}
         >
           {/* Sweep light */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -76,7 +92,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
                 priority
               />
             </div>
-            <span className="text-white/90 text-lg font-heading font-semibold tracking-tight">
+            <span className="text-lg font-heading font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
               Orizonix
             </span>
           </motion.div>
