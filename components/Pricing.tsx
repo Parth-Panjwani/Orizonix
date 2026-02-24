@@ -4,52 +4,54 @@ import { useReveal } from "@/hooks/useReveal";
 
 const tiers = [
   {
-    name: "Social Starter",
-    description: "For small brands building their digital foundation.",
-    price: "₹15,000 – ₹20,000",
-    period: "/month",
+    name: "Social Media Management",
+    description: "Build Authority & Stay Consistent.",
+    price: "₹15,000",
+    period: "/ month",
     deliverables: [
-      "12 Social Media Posts",
-      "2 Reels per month",
-      "Basic Ads Setup",
-      "Monthly Performance Report",
+      "12 Strategic Posts",
+      "4–6 Growth-Focused Reels",
+      "Conversion-Focused Captions",
+      "Profile Optimization Setup",
+      "Actionable Content Calendar",
+      "Monthly Growth Analytics"
     ],
-    engagement: "Minimum 3-month engagement",
+    engagement: "Growth Tier: ₹18,000 / month",
     highlighted: false,
   },
   {
-    name: "Growth Marketing",
-    description: "For scaling brands ready for structured, multi-channel growth.",
-    price: "₹35,000 – ₹60,000",
-    period: "/month",
+    name: "Brand Launch Package",
+    description: "Everything You Need to Launch & Grow.",
+    price: "₹35,000 – ₹50,000",
+    period: "",
     deliverables: [
-      "Social Media Management",
-      "Paid Ads Management",
-      "Funnel Setup & Optimization",
-      "WhatsApp Automation",
-      "4 Reels per month",
-      "Bi-weekly Reporting & Strategy",
+      "High-Converting Website",
+      "90 Days of Social Growth",
+      "Mobile-First Optimization",
+      "Automated Lead Capture",
+      "Strategic Content Rollout",
+      "Performance & ROI Tracking"
     ],
-    engagement: "Minimum 4-month engagement",
+    engagement: "Build. Position. Scale.",
     highlighted: true,
-    badge: "Recommended",
+    badge: "Complete Package",
   },
   {
-    name: "Revenue Systems",
-    description: "For aggressive expansion with a dedicated strategist and full-funnel system.",
-    price: "₹85,000+",
-    period: "/month",
+    name: "Website Development",
+    description: "Your 24/7 Digital Salesperson.",
+    price: "₹25,000",
+    period: "/ One-Time",
     deliverables: [
-      "Multi-Channel Ad Campaigns",
-      "Funnel Architecture & CRO",
-      "CRM Integration",
-      "Automation Setup (Email / WhatsApp)",
-      "Conversion Optimization",
-      "Dedicated Growth Strategist",
+      "5–7 Page Custom Design",
+      "Flawless Mobile Experience",
+      "Automated WhatsApp Routing",
+      "High-Converting Contact Forms",
+      "Local SEO & Google Maps",
+      "Fast & Secure Foundation"
     ],
-    engagement: "Custom engagement",
+    engagement: "Premium Website: ₹35,000",
     highlighted: false,
-  },
+  }
 ];
 
 export default function Pricing() {
@@ -83,6 +85,23 @@ export default function Pricing() {
             </div>
           ))}
         </div>
+
+        {/* Trust Builders */}
+        <div className={`mt-12 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-10 text-zinc-300 text-[14px] md:text-[15px] font-medium reveal reveal-delay-4 ${revealed ? "revealed" : ""}`}>
+          {[
+            "30-minute free strategy call",
+            "Clear deliverables",
+            "Transparent pricing",
+            "No hidden costs"
+          ].map((text, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              {text}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -91,19 +110,19 @@ export default function Pricing() {
 function PricingCard({ tier, index, revealed }: { tier: typeof tiers[0]; index: number; revealed: boolean }) {
   return (
     <div
-      className={`relative rounded-xl flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 reveal reveal-delay-${index + 1} ${
+      className={`relative rounded-xl flex flex-col h-full transition-transform duration-300 hover:-translate-y-2 reveal reveal-delay-${index + 1} ${
         tier.highlighted
-          ? "pricing-recommended glass-card"
-          : "glass-card"
+          ? "pricing-recommended glass-card md:scale-[1.05] z-10 border border-blue-500/30"
+          : "glass-card z-0"
       } ${revealed ? "revealed" : ""}`}
       style={{ overflow: "visible" }}
     >
       {/* Badge */}
       {tier.badge && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 px-5 py-1.5 text-white text-xs font-bold rounded-full uppercase tracking-wider whitespace-nowrap z-10"
+          className="absolute left-1/2 -translate-x-1/2 px-5 py-1.5 text-white text-[13px] font-bold rounded-full uppercase tracking-wider whitespace-nowrap z-20"
           style={{
-            top: "-14px",
+            top: "-15px",
             background: "linear-gradient(135deg, #2563EB, #3B82F6)",
             boxShadow: "0 4px 16px rgba(37,99,235,0.4)",
             letterSpacing: "0.08em",
@@ -113,46 +132,49 @@ function PricingCard({ tier, index, revealed }: { tier: typeof tiers[0]; index: 
         </div>
       )}
 
-      <div className="p-5 sm:p-6 md:p-8 flex flex-col flex-grow" style={{ paddingTop: tier.badge ? "2rem" : undefined }}>
-        <h3 className="text-card-title font-heading font-bold text-white mb-2">
+      <div className="p-5 sm:p-7 md:p-8 flex flex-col flex-grow" style={{ paddingTop: tier.badge ? "2rem" : undefined }}>
+        <h3 className="text-card-title font-heading font-bold text-white mb-1">
           {tier.name}
         </h3>
-        <p className="text-[14px] sm:text-[15px] text-zinc-400 mb-5">
+        <p className="text-blue-400 text-[15px] font-semibold mb-6">
           {tier.description}
         </p>
 
-        <div className="mb-5">
-          <span className="text-[26px] sm:text-[30px] font-heading font-bold text-white">
+        <div className="mb-6">
+          <span className="text-[28px] sm:text-[32px] font-heading font-bold text-white tracking-tight">
             {tier.price}
           </span>
           {tier.period && (
-            <span className="text-[14px] text-zinc-500">{tier.period}</span>
+            <span className="text-[15px] text-zinc-500 ml-1">{tier.period}</span>
           )}
         </div>
 
-        <ul className="space-y-3 mb-6 flex-grow">
+        <ul className="space-y-4 mb-8 flex-grow">
           {tier.deliverables.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5">
-              <svg className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <li key={i} className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              <span className="text-[14px] sm:text-[15px] text-zinc-300">{item}</span>
+              <span className="text-[15px] text-zinc-300 leading-snug">{item}</span>
             </li>
           ))}
         </ul>
 
-        <p className="text-[13px] text-zinc-500 mb-5">
-          {tier.engagement}
-        </p>
+        <div className="mt-auto space-y-4">
+          <p className="text-[14px] text-zinc-400 font-medium text-center">
+            {tier.engagement}
+            <span className="block text-zinc-500 text-[13px] mt-1 italic">Add-ons Available</span>
+          </p>
 
-        <a
-          href="#contact"
-          className={`block w-full text-center py-3.5 rounded-lg font-semibold text-[15px] transition-all duration-250 ${
-            tier.highlighted ? "btn-primary" : "btn-secondary"
-          }`}
-        >
-          Book Strategy Call
-        </a>
+          <a
+            href="#contact"
+            className={`block w-full text-center py-4 rounded-lg font-bold text-[16px] transition-all duration-250 shadow-lg ${
+              tier.highlighted ? "btn-primary hover:shadow-blue-500/25" : "btn-secondary hover:shadow-white/5"
+            }`}
+          >
+            Book Strategy Call
+          </a>
+        </div>
       </div>
     </div>
   );
