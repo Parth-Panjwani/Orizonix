@@ -63,10 +63,10 @@ export default function Services() {
       <div className="container mx-auto max-w-6xl" ref={ref}>
         <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">What We Deliver</span>
-          <h2 className="text-section font-heading text-white mb-4">
+          <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Outcome-Based Services
           </h2>
-          <p className="text-[16px] md:text-[17px] text-zinc-400 max-w-xl mx-auto">
+          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             Every service connects directly to revenue growth. No vanity work.
           </p>
         </div>
@@ -79,11 +79,11 @@ export default function Services() {
                 index === 2 ? "col-span-2 md:col-span-1" : ""
               } ${revealed ? "revealed" : ""}`}
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-5">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 icon-glow mb-5">
                 {pillar.icon}
               </div>
 
-              <h3 className="text-card-title font-heading text-white mb-4">
+              <h3 className="text-card-title font-heading mb-4" style={{ color: "var(--text-primary)" }}>
                 {pillar.label}
               </h3>
 
@@ -93,13 +93,13 @@ export default function Services() {
                     <svg className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span className="text-[14px] sm:text-[15px] text-zinc-300">{item}</span>
+                    <span className="text-[14px] sm:text-[15px]" style={{ color: "var(--text-body)" }}>{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="pt-4 border-t border-white/[0.06]">
-                <p className="text-[14px] sm:text-[15px] font-medium text-blue-400">
+              <div className="pt-4" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                <p className="text-[14px] sm:text-[15px] font-medium text-blue-500">
                   {pillar.outcome}
                 </p>
               </div>

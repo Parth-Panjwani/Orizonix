@@ -102,7 +102,7 @@ export default function Hero() {
 
       {/* Animated SVG Graph Line */}
       <svg
-        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.05] pointer-events-none"
+        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.06] pointer-events-none"
         viewBox="0 0 1200 200"
         preserveAspectRatio="none"
       >
@@ -127,12 +127,12 @@ export default function Hero() {
             top: node.y,
             width: node.size,
             height: node.size,
-            background: "radial-gradient(circle, rgba(59,130,246,0.5) 0%, rgba(59,130,246,0.15) 100%)",
-            boxShadow: "0 0 8px rgba(59,130,246,0.2)",
+            background: "radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.1) 100%)",
+            boxShadow: "0 0 8px rgba(59,130,246,0.15)",
           }}
           animate={{
             y: [0, -16, 6, -10, 0],
-            opacity: [0.25, 0.6, 0.35, 0.7, 0.25],
+            opacity: [0.2, 0.5, 0.3, 0.6, 0.2],
           }}
           transition={{
             duration: 10,
@@ -150,13 +150,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-sm md:text-base font-medium text-blue-400 tracking-widest uppercase mb-6"
+          className="text-sm md:text-base font-medium text-blue-500 tracking-widest uppercase mb-6"
         >
           Revenue Growth Systems Partner
         </motion.p>
 
         {/* Headline — staggered words */}
-        <h1 className="text-hero font-heading text-white mb-6 leading-none">
+        <h1 className="text-hero font-heading mb-6 leading-none" style={{ color: "var(--text-primary)" }}>
           {headlineWords.map((word, i) => (
             <motion.span
               key={i}
@@ -177,7 +177,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
               className="inline-block mr-[0.3em] gradient-text"
               style={{
-                filter: "drop-shadow(0 0 30px rgba(37,99,235,0.25))",
+                filter: "drop-shadow(0 0 20px rgba(37,99,235,0.15))",
               }}
             >
               {word}
@@ -190,7 +190,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="text-[17px] md:text-lg text-zinc-400 mb-10 leading-relaxed max-w-2xl mx-auto"
+          className="text-[17px] md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto"
+          style={{ color: "var(--text-secondary)" }}
         >
           We design and execute scalable growth systems that help ambitious
           brands acquire customers, increase ROI, and grow sustainably.
@@ -226,10 +227,10 @@ export default function Hero() {
         >
           {trustStats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-stat font-heading text-white">
+              <div className="text-stat font-heading" style={{ color: "var(--text-primary)" }}>
                 <AnimatedCounter end={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-xs md:text-sm text-zinc-500 mt-1 uppercase tracking-wider">
+              <div className="text-xs md:text-sm mt-1 uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
                 {stat.label}
               </div>
             </div>

@@ -118,7 +118,7 @@ export default function Process() {
       <div className="container mx-auto max-w-5xl" ref={sectionRef}>
         <div className={`text-center mb-14 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Our Process</span>
-          <h2 className="text-section font-heading text-white">
+          <h2 className="text-section font-heading" style={{ color: "var(--text-primary)" }}>
             How We Drive Growth
           </h2>
         </div>
@@ -135,7 +135,7 @@ export default function Process() {
             >
               <motion.line
                 x1="0" y1="2" x2="690" y2="2"
-                stroke="rgba(37,99,235,0.15)"
+                stroke="rgba(37,99,235,0.12)"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
@@ -158,7 +158,7 @@ export default function Process() {
                   stroke="#3B82F6"
                   strokeWidth="4"
                   strokeLinecap="round"
-                  style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.6))" }}
+                  style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.5))" }}
                 />
               )}
               {isInView && <FlowingParticles />}
@@ -174,11 +174,14 @@ export default function Process() {
                 >
                   {/* Node circle */}
                   <motion.div
-                    className={`w-[72px] h-[72px] rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10 transition-all duration-300 ${
+                    className={`w-[72px] h-[72px] rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10 transition-all duration-300 border ${
                       activeStep === index
-                        ? "bg-blue-600/20 border-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.2)]"
-                        : "bg-surface-alt border-blue-600/30"
-                    } border`}
+                        ? "bg-blue-500/15 border-blue-400 shadow-[0_0_20px_rgba(37,99,235,0.15)]"
+                        : "border-blue-500/20"
+                    }`}
+                    style={{
+                      background: activeStep === index ? undefined : "var(--bg-elevated)",
+                    }}
                     animate={
                       activeStep === index
                         ? { scale: 1.1 }
@@ -186,19 +189,19 @@ export default function Process() {
                     }
                     transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                   >
-                    <div className={`text-blue-400 transition-all duration-300 ${
+                    <div className={`text-blue-500 transition-all duration-300 ${
                       activeStep === index ? "scale-110" : ""
                     }`}>
                       {step.icon}
                     </div>
                   </motion.div>
 
-                  <h3 className="text-card-title font-heading text-white mb-2">
+                  <h3 className="text-card-title font-heading mb-2" style={{ color: "var(--text-primary)" }}>
                     {step.title}
                   </h3>
 
                   {/* Short description always visible */}
-                  <p className="text-[15px] text-zinc-400 leading-relaxed">
+                  <p className="text-[15px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                     {step.description}
                   </p>
 
@@ -210,7 +213,8 @@ export default function Process() {
                         animate={{ opacity: 1, height: "auto", marginTop: 12 }}
                         exit={{ opacity: 0, height: 0, marginTop: 0 }}
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                        className="text-[13px] text-zinc-500 leading-relaxed overflow-hidden"
+                        className="text-[13px] leading-relaxed overflow-hidden"
+                        style={{ color: "var(--text-muted)" }}
                       >
                         {step.detail}
                       </motion.p>
@@ -227,14 +231,14 @@ export default function Process() {
           <div className="relative pl-8">
             {/* Vertical connecting line */}
             <motion.div
-              className="absolute left-[15px] top-0 bottom-0 w-[2px] bg-blue-600/10"
+              className="absolute left-[15px] top-0 bottom-0 w-[2px]"
               initial={{ scaleY: 0 }}
               animate={isInView ? { scaleY: 1 } : {}}
               transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-              style={{ transformOrigin: "top" }}
+              style={{ background: "var(--border-subtle)", transformOrigin: "top" }}
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-blue-600 to-blue-600/20"
+                className="absolute inset-0 bg-gradient-to-b from-blue-500 to-blue-500/20"
                 initial={{ scaleY: 0 }}
                 animate={isInView ? { scaleY: 1 } : {}}
                 transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
@@ -250,17 +254,20 @@ export default function Process() {
                   onClick={() => setActiveStep(activeStep === index ? null : index)}
                 >
                   {/* Node dot */}
-                  <div className="absolute -left-8 top-3 w-[30px] h-[30px] rounded-lg bg-surface-alt border border-blue-600/40 flex items-center justify-center z-10">
-                    <span className="text-[10px] font-heading font-bold text-blue-400">
+                  <div
+                    className="absolute -left-8 top-3 w-[30px] h-[30px] rounded-lg border border-blue-500/30 flex items-center justify-center z-10"
+                    style={{ background: "var(--bg-elevated)" }}
+                  >
+                    <span className="text-[10px] font-heading font-bold text-blue-500">
                       {step.number}
                     </span>
                   </div>
 
                   <div className="glass-card rounded-xl p-4">
-                    <h3 className="text-[15px] font-heading font-semibold text-white mb-1.5">
+                    <h3 className="text-[15px] font-heading font-semibold mb-1.5" style={{ color: "var(--text-primary)" }}>
                       {step.title}
                     </h3>
-                    <p className="text-[13px] text-zinc-400 leading-relaxed">
+                    <p className="text-[13px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                       {step.description}
                     </p>
 
@@ -271,7 +278,11 @@ export default function Process() {
                           animate={{ opacity: 1, height: "auto", marginTop: 8 }}
                           exit={{ opacity: 0, height: 0, marginTop: 0 }}
                           transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                          className="text-[12px] text-zinc-500 leading-relaxed border-t border-white/[0.06] pt-2 overflow-hidden"
+                          className="text-[12px] leading-relaxed pt-2 overflow-hidden"
+                          style={{
+                            color: "var(--text-muted)",
+                            borderTop: "1px solid var(--border-subtle)",
+                          }}
                         >
                           {step.detail}
                         </motion.p>

@@ -73,10 +73,10 @@ export default function SocialProof() {
         <div className={`grid grid-cols-3 gap-4 sm:gap-8 py-8 sm:py-10 px-4 sm:px-8 md:px-12 glass-card rounded-xl mb-14 reveal ${revealed ? "revealed" : ""}`}>
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-stat font-heading text-white mb-1">
+              <div className="text-stat font-heading mb-1" style={{ color: "var(--text-primary)" }}>
                 <AnimatedStat end={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-[11px] sm:text-[13px] text-zinc-500 uppercase tracking-wider">
+              <div className="text-[11px] sm:text-[13px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
                 {stat.label}
               </div>
             </div>
@@ -86,7 +86,7 @@ export default function SocialProof() {
         {/* Testimonials Header */}
         <div className={`text-center mb-10 reveal reveal-delay-1 ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Testimonials</span>
-          <h2 className="text-section font-heading text-white">
+          <h2 className="text-section font-heading" style={{ color: "var(--text-primary)" }}>
             What Clients Say
           </h2>
         </div>
@@ -99,22 +99,22 @@ export default function SocialProof() {
               className={`glass-card rounded-xl p-5 sm:p-6 md:p-8 flex flex-col reveal reveal-delay-${index + 2} ${revealed ? "revealed" : ""}`}
             >
               <svg
-                className="w-8 h-8 text-blue-500/30 mb-4"
+                className="w-8 h-8 text-blue-400/40 mb-4"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
               </svg>
 
-              <p className="text-[15px] sm:text-[16px] text-zinc-300 leading-relaxed mb-5 flex-grow italic">
+              <p className="text-[15px] sm:text-[16px] leading-relaxed mb-5 flex-grow italic" style={{ color: "var(--text-body)" }}>
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
 
-              <div className="pt-4 border-t border-white/[0.06]">
-                <div className="text-[15px] font-medium text-white">
+              <div className="pt-4" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                <div className="text-[15px] font-medium" style={{ color: "var(--text-primary)" }}>
                   — {testimonial.name}
                 </div>
-                <div className="text-[13px] text-zinc-500 mt-0.5">
+                <div className="text-[13px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                   {testimonial.company}
                 </div>
               </div>

@@ -1,37 +1,91 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
   { href: "#services", label: "Services" },
-  { href: "#case-studies", label: "Case Studies" },
+  { href: "#projects", label: "Projects" },
   { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
 ];
+
+const sectionIds = navLinks.map((l) => l.href.replace("#", ""));
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
+  const clickedRef = useRef<string | null>(null);
+  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  /* ── Scroll shadow ── */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* ── Body lock for mobile menu ── */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  /* ── IntersectionObserver — update active link on scroll ── */
+  useEffect(() => {
+    // Map: sectionId → ratio currently visible
+    const ratioMap: Record<string, number> = {};
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // If user just clicked a link, let the click-set value win for 800ms
+        if (clickedRef.current) return;
+
+        entries.forEach((entry) => {
+          ratioMap[entry.target.id] = entry.intersectionRatio;
+        });
+
+        // Pick the section with the highest visible ratio
+        let bestId = "";
+        let bestRatio = 0;
+        for (const id of sectionIds) {
+          const r = ratioMap[id] ?? 0;
+          if (r > bestRatio) { bestRatio = r; bestId = id; }
+        }
+        if (bestId) setActiveLink(`#${bestId}`);
+      },
+      {
+        // Fire at these intersection thresholds
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        // Shrink the top of the viewport by 80px (header height) so sections
+        // become "active" right when they scroll into view below the header
+        rootMargin: "-80px 0px -40% 0px",
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleLinkClick = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setMobileOpen(false);
     setActiveLink(href);
+
+    // Suppress observer override for 1s while smooth-scroll plays out
+    clickedRef.current = href;
+    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+    clickTimerRef.current = setTimeout(() => {
+      clickedRef.current = null;
+    }, 1000);
+
     const target = document.querySelector(href);
     target?.scrollIntoView({ behavior: "smooth" });
   };
@@ -49,18 +103,18 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <div
               className="relative flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden"
-              style={{ filter: "drop-shadow(0 0 12px rgba(59,130,246,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 12px rgba(59,130,246,0.25))" }}
             >
               <Image
                 src="/Orizonix.png"
                 alt="Orizonix Logo"
                 width={40}
                 height={40}
-                className="object-contain brightness-[1.8]"
+                className="object-contain"
                 priority
               />
             </div>
-            <span className="text-xl font-heading font-bold text-white tracking-tight">
+            <span className="text-xl font-heading font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>
               Orizonix
             </span>
           </Link>
@@ -72,7 +126,8 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick(link.href)}
-                className="relative text-[15px] text-zinc-400 hover:text-white transition-colors duration-200 font-medium py-1 group"
+                className="relative text-[15px] transition-colors duration-200 font-medium py-1 group"
+                style={{ color: "var(--text-secondary)" }}
               >
                 {link.label}
                 <span
@@ -102,19 +157,22 @@ export default function Header() {
             <span className="sr-only">{mobileOpen ? "Close" : "Menu"}</span>
             <div className="w-6 h-5 relative flex flex-col justify-between">
               <span
-                className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-250 origin-center ${
+                className={`block w-6 h-[2px] rounded-full transition-all duration-250 origin-center ${
                   mobileOpen ? "rotate-45 translate-y-[9px]" : ""
                 }`}
+                style={{ background: "var(--text-primary)" }}
               />
               <span
-                className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-250 ${
+                className={`block w-6 h-[2px] rounded-full transition-all duration-250 ${
                   mobileOpen ? "opacity-0 scale-x-0" : ""
                 }`}
+                style={{ background: "var(--text-primary)" }}
               />
               <span
-                className={`block w-6 h-[2px] bg-white rounded-full transition-all duration-250 origin-center ${
+                className={`block w-6 h-[2px] rounded-full transition-all duration-250 origin-center ${
                   mobileOpen ? "-rotate-45 -translate-y-[9px]" : ""
                 }`}
+                style={{ background: "var(--text-primary)" }}
               />
             </div>
           </button>
@@ -130,7 +188,7 @@ export default function Header() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 md:hidden"
-            style={{ background: "rgba(11, 15, 26, 1)" }}
+            style={{ background: "var(--surface-overlay)" }}
           >
             {navLinks.map((link, i) => (
               <motion.a
@@ -140,7 +198,8 @@ export default function Header() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="text-2xl font-heading font-semibold text-white hover:text-blue-400 transition-colors"
+                className="text-2xl font-heading font-semibold hover:text-blue-500 transition-colors"
+                style={{ color: "var(--text-primary)" }}
               >
                 {link.label}
               </motion.a>

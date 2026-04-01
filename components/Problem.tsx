@@ -59,7 +59,7 @@ export default function Problem() {
       <div className="container mx-auto max-w-5xl" ref={ref}>
         <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">The Problem</span>
-          <h2 className="text-section font-heading text-white">
+          <h2 className="text-section font-heading" style={{ color: "var(--text-primary)" }}>
             Sound Familiar?
           </h2>
         </div>
@@ -70,13 +70,13 @@ export default function Problem() {
               key={index}
               className={`glass-card rounded-xl p-4 sm:p-6 md:p-8 reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
             >
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow mb-4">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 icon-glow mb-4">
                 {point.icon}
               </div>
-              <h3 className="text-card-title font-heading text-white mb-2">
+              <h3 className="text-card-title font-heading mb-2" style={{ color: "var(--text-primary)" }}>
                 {point.title}
               </h3>
-              <p className="text-[14px] sm:text-[16px] text-zinc-400 leading-relaxed">
+              <p className="text-[14px] sm:text-[16px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {point.description}
               </p>
             </div>

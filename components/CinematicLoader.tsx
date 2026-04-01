@@ -66,7 +66,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
               className="absolute top-1/2 -translate-y-1/2 w-64 h-[500px] loader-sweep"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(37,99,235,0.12) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at center, rgba(37,99,235,0.08) 0%, transparent 70%)",
                 filter: "blur(40px)",
               }}
             />
@@ -81,14 +81,14 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
           >
             <div
               className="w-16 h-16 rounded-xl overflow-hidden mb-4"
-              style={{ filter: "drop-shadow(0 0 20px rgba(59,130,246,0.4))" }}
+              style={{ filter: "drop-shadow(0 0 16px rgba(59,130,246,0.3))" }}
             >
               <Image
                 src="/Orizonix.png"
                 alt="Orizonix"
                 width={64}
                 height={64}
-                className="object-contain brightness-[1.8]"
+                className="object-contain"
                 priority
               />
             </div>
@@ -98,7 +98,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
           </motion.div>
 
           {/* Progress line */}
-          <div className="relative z-10 mt-6 w-32 h-[2px] bg-white/5 rounded-full overflow-hidden">
+          <div className="relative z-10 mt-6 w-32 h-[2px] rounded-full overflow-hidden" style={{ background: "var(--border-subtle)" }}>
             <div
               className="absolute inset-0 rounded-full loader-progress"
               style={{

@@ -64,10 +64,10 @@ export default function Contact() {
       <div className="container mx-auto max-w-2xl" ref={ref}>
         <div className={`text-center mb-10 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-3 block">Let&apos;s Talk</span>
-          <h2 className="text-section font-heading text-white mb-4">
+          <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Ready to Build Predictable Growth?
           </h2>
-          <p className="text-[16px] md:text-[17px] text-zinc-400">
+          <p className="text-[16px] md:text-[17px]" style={{ color: "var(--text-secondary)" }}>
             Tell us about your business. We&apos;ll show you what&apos;s possible.
           </p>
         </div>
@@ -80,8 +80,8 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`p-4 rounded-lg text-[14px] ${
                   formStatus.type === "success"
-                    ? "bg-blue-600/10 text-blue-400 border border-blue-500/20"
-                    : "bg-red-500/10 text-red-400 border border-red-500/20"
+                    ? "bg-blue-500/10 text-blue-600 border border-blue-500/20"
+                    : "bg-red-500/10 text-red-500 border border-red-500/20"
                 }`}
               >
                 {formStatus.message}
@@ -89,7 +89,7 @@ export default function Contact() {
             )}
 
             <div>
-              <label htmlFor="name" className="block text-[14px] text-zinc-400 mb-2">
+              <label htmlFor="name" className="block text-[14px] mb-2" style={{ color: "var(--text-secondary)" }}>
                 Name <span className="text-blue-500">*</span>
               </label>
               <input
@@ -103,7 +103,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-[14px] text-zinc-400 mb-2">
+              <label htmlFor="phone" className="block text-[14px] mb-2" style={{ color: "var(--text-secondary)" }}>
                 Contact Number <span className="text-blue-500">*</span>
               </label>
               <input
@@ -117,7 +117,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-[14px] text-zinc-400 mb-2">
+              <label htmlFor="company" className="block text-[14px] mb-2" style={{ color: "var(--text-secondary)" }}>
                 Company <span className="text-blue-500">*</span>
               </label>
               <input
@@ -131,8 +131,8 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="website" className="block text-[14px] text-zinc-400 mb-2">
-                Website <span className="text-zinc-600 text-xs">(optional)</span>
+              <label htmlFor="website" className="block text-[14px] mb-2" style={{ color: "var(--text-secondary)" }}>
+                Website <span className="text-xs" style={{ color: "var(--text-muted)" }}>(optional)</span>
               </label>
               <input
                 type="url"
@@ -144,7 +144,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="budget" className="block text-[14px] text-zinc-400 mb-2">
+              <label htmlFor="budget" className="block text-[14px] mb-2" style={{ color: "var(--text-secondary)" }}>
                 Monthly Marketing Budget <span className="text-blue-500">*</span>
               </label>
               <select
@@ -154,19 +154,19 @@ export default function Contact() {
                 className="w-full px-4 py-3.5 rounded-lg input-field appearance-none cursor-pointer"
                 defaultValue=""
               >
-                <option value="" disabled className="bg-surface-alt text-zinc-500">
+                <option value="" disabled style={{ background: "var(--bg-secondary)", color: "var(--text-muted)" }}>
                   Select budget range
                 </option>
-                <option value="under-25k" className="bg-surface-alt text-zinc-300">
+                <option value="under-25k" style={{ background: "var(--bg-secondary)", color: "var(--text-body)" }}>
                   Under ₹25,000
                 </option>
-                <option value="25k-50k" className="bg-surface-alt text-zinc-300">
+                <option value="25k-50k" style={{ background: "var(--bg-secondary)", color: "var(--text-body)" }}>
                   ₹25,000 – ₹50,000
                 </option>
-                <option value="50k-1l" className="bg-surface-alt text-zinc-300">
+                <option value="50k-1l" style={{ background: "var(--bg-secondary)", color: "var(--text-body)" }}>
                   ₹50,000 – ₹1,00,000
                 </option>
-                <option value="1l-plus" className="bg-surface-alt text-zinc-300">
+                <option value="1l-plus" style={{ background: "var(--bg-secondary)", color: "var(--text-body)" }}>
                   ₹1,00,000+
                 </option>
               </select>

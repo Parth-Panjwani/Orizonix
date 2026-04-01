@@ -13,28 +13,28 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-white/[0.06] py-10 px-4 md:px-8 section-dark">
+    <footer className="py-10 px-4 md:px-8 section-dark" style={{ borderTop: "1px solid var(--border-subtle)" }}>
       <div className="container mx-auto max-w-5xl" ref={ref}>
         <div className={`flex flex-col md:flex-row items-center justify-between gap-8 reveal ${revealed ? "revealed" : ""}`}>
           {/* Logo + Tagline */}
           <div className="flex items-center gap-3">
             <div
               className="w-9 h-9 rounded-md overflow-hidden"
-              style={{ filter: "drop-shadow(0 0 10px rgba(59,130,246,0.3))" }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.2))" }}
             >
               <Image
                 src="/Orizonix.png"
                 alt="Orizonix"
                 width={36}
                 height={36}
-                className="object-contain brightness-[1.8]"
+                className="object-contain"
               />
             </div>
             <div>
-              <span className="text-white font-heading font-bold text-[15px]">
+              <span className="font-heading font-bold text-[15px]" style={{ color: "var(--text-primary)" }}>
                 Orizonix
               </span>
-              <p className="text-[12px] text-zinc-500">
+              <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
                 Revenue Growth Systems Partner
               </p>
             </div>
@@ -46,7 +46,8 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[13px] text-zinc-500 hover:text-zinc-300 transition-colors"
+                className="text-[13px] transition-colors hover:text-blue-500"
+                style={{ color: "var(--text-muted)" }}
               >
                 {link.label}
               </a>
@@ -59,7 +60,8 @@ export default function Footer() {
               href="https://linkedin.com/company/orizonix"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-blue-400 transition-colors"
+              className="hover:text-blue-500 transition-colors"
+              style={{ color: "var(--text-muted)" }}
               aria-label="LinkedIn"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -70,7 +72,8 @@ export default function Footer() {
               href="https://instagram.com/orizonix"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-500 hover:text-blue-400 transition-colors"
+              className="hover:text-blue-500 transition-colors"
+              style={{ color: "var(--text-muted)" }}
               aria-label="Instagram"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -80,8 +83,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 pt-5 border-t border-white/[0.04] text-center">
-          <p className="text-[12px] text-zinc-600">
+        <div className="mt-6 pt-5 text-center" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+          <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
             © {new Date().getFullYear()} Orizonix. All rights reserved.
           </p>
         </div>

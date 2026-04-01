@@ -5,53 +5,77 @@ import { useReveal } from "@/hooks/useReveal";
 const tiers = [
   {
     name: "Social Media Management",
-    description: "Build Authority & Stay Consistent.",
+    tagline: "Build authority & stay consistent.",
     price: "₹15,000",
-    period: "/ month",
+    period: "/month",
     deliverables: [
-      "12 Strategic Posts",
+      "12 Strategic Posts / month",
       "4–6 Growth-Focused Reels",
       "Conversion-Focused Captions",
       "Profile Optimization Setup",
-      "Actionable Content Calendar",
-      "Monthly Growth Analytics"
+      "Content Calendar",
+      "Monthly Growth Report",
     ],
-    engagement: "Growth Tier: ₹18,000 / month",
+    addon: {
+      label: "Growth Tier",
+      price: "₹18,000/month",
+      perks: [
+        "20 Posts + 8 Reels",
+        "Story Sequences",
+        "Competitor Benchmarking",
+      ],
+    },
     highlighted: false,
   },
   {
     name: "Brand Launch Package",
-    description: "Everything You Need to Launch & Grow.",
+    tagline: "Everything you need to launch & scale.",
     price: "₹35,000 – ₹50,000",
-    period: "",
+    period: "one-time",
+    badge: "Most Popular",
     deliverables: [
       "High-Converting Website",
-      "90 Days of Social Growth",
+      "90 Days of Social Media Management",
       "Mobile-First Optimization",
       "Automated Lead Capture",
       "Strategic Content Rollout",
-      "Performance & ROI Tracking"
+      "Performance & ROI Tracking",
     ],
-    engagement: "Build. Position. Scale.",
+    addon: {
+      label: "Ongoing Growth Retainer",
+      price: "₹18,000/month",
+      perks: [
+        "Continued Social Management",
+        "Monthly Strategy Review",
+        "Ad Campaign Management",
+      ],
+    },
     highlighted: true,
-    badge: "Complete Package",
   },
   {
     name: "Website Development",
-    description: "Your 24/7 Digital Salesperson.",
+    tagline: "Your 24/7 digital salesperson.",
     price: "₹25,000",
-    period: "/ One-Time",
+    period: "one-time",
     deliverables: [
       "5–7 Page Custom Design",
-      "Flawless Mobile Experience",
-      "Automated WhatsApp Routing",
-      "High-Converting Contact Forms",
+      "Mobile-First Responsive",
+      "WhatsApp & Lead Form Routing",
       "Local SEO & Google Maps",
-      "Fast & Secure Foundation"
+      "Fast & Secure Setup",
+      "30 Days Post-Launch Support",
     ],
-    engagement: "Premium Website: ₹35,000",
+    addon: {
+      label: "Premium Website",
+      price: "₹35,000",
+      perks: [
+        "10+ Pages",
+        "Blog / Portfolio Section",
+        "Advanced Animations",
+      ],
+    },
     highlighted: false,
-  }
+  },
 ];
 
 export default function Pricing() {
@@ -60,42 +84,44 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-20 md:py-24 px-4 md:px-8 section-darker">
       <div className="container mx-auto max-w-6xl" ref={ref}>
-        <div className={`text-center mb-12 reveal ${revealed ? "revealed" : ""}`}>
-          <span className="section-label mb-3 block">Investment</span>
-          <h2 className="text-section font-heading text-white mb-4">
-            Growth Is an Investment, Not an Expense
+
+        {/* Header */}
+        <div className={`text-center mb-14 reveal ${revealed ? "revealed" : ""}`}>
+          <span className="section-label mb-3 block">Pricing</span>
+          <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
+            Simple, Transparent Pricing
           </h2>
-          <p className="text-[16px] md:text-[17px] text-zinc-400 max-w-lg mx-auto">
-            Choose the engagement level that matches your growth ambitions.
+          <p className="text-[16px] md:text-[17px] max-w-lg mx-auto" style={{ color: "var(--text-secondary)" }}>
+            Every plan is scoped to deliver real outcomes. No hidden fees, no ambiguity.
           </p>
         </div>
 
-        {/* Desktop: 3-col grid — pt-4 gives badge room */}
-        <div className="hidden md:grid md:grid-cols-3 gap-5 items-stretch pt-4">
+        {/* Desktop: 3-col grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6 items-start pt-4">
           {tiers.map((tier, index) => (
             <PricingCard key={index} tier={tier} index={index} revealed={revealed} />
           ))}
         </div>
 
-        {/* Mobile: Horizontal scroll — pt-5 ensures badge has room */}
-        <div className="md:hidden flex gap-3 overflow-x-auto pricing-scroll pb-4 pt-5 -mx-4 px-4">
+        {/* Mobile: Horizontal scroll */}
+        <div className="md:hidden flex gap-4 overflow-x-auto pricing-scroll pb-4 pt-5 -mx-4 px-4">
           {tiers.map((tier, index) => (
-            <div key={index} className="min-w-[280px] w-[85vw] max-w-[320px] flex-shrink-0">
+            <div key={index} className="min-w-[290px] w-[88vw] max-w-[340px] flex-shrink-0">
               <PricingCard tier={tier} index={index} revealed={revealed} />
             </div>
           ))}
         </div>
 
-        {/* Trust Builders */}
-        <div className={`mt-12 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-10 text-zinc-300 text-[14px] md:text-[15px] font-medium reveal reveal-delay-4 ${revealed ? "revealed" : ""}`}>
+        {/* Trust Strip */}
+        <div className={`mt-12 flex flex-wrap justify-center gap-6 md:gap-10 text-[14px] font-medium reveal reveal-delay-4 ${revealed ? "revealed" : ""}`} style={{ color: "var(--text-muted)" }}>
           {[
-            "30-minute free strategy call",
-            "Clear deliverables",
+            "30-min free strategy call",
+            "Clear deliverables per plan",
             "Transparent pricing",
-            "No hidden costs"
+            "No hidden costs",
           ].map((text, i) => (
             <div key={i} className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               {text}
@@ -107,74 +133,113 @@ export default function Pricing() {
   );
 }
 
-function PricingCard({ tier, index, revealed }: { tier: typeof tiers[0]; index: number; revealed: boolean }) {
+function PricingCard({
+  tier,
+  index,
+  revealed,
+}: {
+  tier: typeof tiers[0];
+  index: number;
+  revealed: boolean;
+}) {
   return (
     <div
-      className={`relative rounded-xl flex flex-col h-full transition-transform duration-300 hover:-translate-y-2 reveal reveal-delay-${index + 1} ${
+      className={`relative rounded-2xl flex flex-col reveal reveal-delay-${index + 1} ${
         tier.highlighted
-          ? "pricing-recommended glass-card md:scale-[1.05] z-10 border border-blue-500/30"
-          : "glass-card z-0"
+          ? "pricing-recommended glass-card border border-blue-500/30"
+          : "glass-card"
       } ${revealed ? "revealed" : ""}`}
       style={{ overflow: "visible" }}
     >
       {/* Badge */}
       {tier.badge && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 px-5 py-1.5 text-white text-[13px] font-bold rounded-full uppercase tracking-wider whitespace-nowrap z-20"
+          className="absolute left-1/2 -translate-x-1/2 -top-[14px] px-4 py-1 text-white text-[12px] font-bold rounded-full uppercase tracking-widest whitespace-nowrap z-20"
           style={{
-            top: "-15px",
             background: "linear-gradient(135deg, #2563EB, #3B82F6)",
-            boxShadow: "0 4px 16px rgba(37,99,235,0.4)",
-            letterSpacing: "0.08em",
+            boxShadow: "0 4px 14px rgba(37,99,235,0.3)",
           }}
         >
           {tier.badge}
         </div>
       )}
 
-      <div className="p-5 sm:p-7 md:p-8 flex flex-col flex-grow" style={{ paddingTop: tier.badge ? "2rem" : undefined }}>
-        <h3 className="text-card-title font-heading font-bold text-white mb-1">
-          {tier.name}
-        </h3>
-        <p className="text-blue-400 text-[15px] font-semibold mb-6">
-          {tier.description}
-        </p>
+      <div className="p-6 md:p-7 flex flex-col flex-grow" style={{ paddingTop: tier.badge ? "2rem" : undefined }}>
 
-        <div className="mb-6">
-          <span className="text-[28px] sm:text-[32px] font-heading font-bold text-white tracking-tight">
-            {tier.price}
-          </span>
-          {tier.period && (
-            <span className="text-[15px] text-zinc-500 ml-1">{tier.period}</span>
-          )}
+        {/* Plan Name + Price */}
+        <div className="mb-5">
+          <h3 className="text-[17px] font-heading font-bold mb-1" style={{ color: "var(--text-primary)" }}>
+            {tier.name}
+          </h3>
+          <p className="text-[13px] mb-4" style={{ color: "var(--text-muted)" }}>
+            {tier.tagline}
+          </p>
+          <div className="flex items-baseline gap-2">
+            <span className="text-[30px] font-heading font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>
+              {tier.price}
+            </span>
+            <span className="text-[13px]" style={{ color: "var(--text-muted)" }}>
+              {tier.period}
+            </span>
+          </div>
         </div>
 
-        <ul className="space-y-4 mb-8 flex-grow">
+        {/* Divider */}
+        <div className="mb-5" style={{ height: 1, background: "var(--border-subtle)" }} />
+
+        {/* What's Included */}
+        <p className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-blue-500">
+          What&apos;s Included
+        </p>
+        <ul className="space-y-2.5 mb-6 flex-grow">
           {tier.deliverables.map((item, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <li key={i} className="flex items-start gap-2.5">
+              <svg className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
-              <span className="text-[15px] text-zinc-300 leading-snug">{item}</span>
+              <span className="text-[14px]" style={{ color: "var(--text-body)" }}>{item}</span>
             </li>
           ))}
         </ul>
 
-        <div className="mt-auto space-y-4">
-          <p className="text-[14px] text-zinc-400 font-medium text-center">
-            {tier.engagement}
-            <span className="block text-zinc-500 text-[13px] mt-1 italic">Add-ons Available</span>
+        {/* Add-on Box */}
+        <div
+          className="rounded-xl p-4 mb-5"
+          style={{
+            background: "rgba(37,99,235,0.05)",
+            border: "1px solid rgba(37,99,235,0.12)",
+          }}
+        >
+          <div className="flex items-center justify-between mb-2.5">
+            <p className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
+              Add-on
+            </p>
+            <span className="text-[13px] font-bold text-blue-500">
+              {tier.addon.price}
+            </span>
+          </div>
+          <p className="text-[13px] font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
+            {tier.addon.label}
           </p>
-
-          <a
-            href="#contact"
-            className={`block w-full text-center py-4 rounded-lg font-bold text-[16px] transition-all duration-250 shadow-lg ${
-              tier.highlighted ? "btn-primary hover:shadow-blue-500/25" : "btn-secondary hover:shadow-white/5"
-            }`}
-          >
-            Book Strategy Call
-          </a>
+          <ul className="space-y-1">
+            {tier.addon.perks.map((perk, i) => (
+              <li key={i} className="flex items-center gap-2 text-[12px]" style={{ color: "var(--text-secondary)" }}>
+                <span className="w-1 h-1 rounded-full bg-blue-400 flex-shrink-0" />
+                {perk}
+              </li>
+            ))}
+          </ul>
         </div>
+
+        {/* CTA */}
+        <a
+          href="#contact"
+          className={`block w-full text-center py-3.5 rounded-xl font-semibold text-[15px] transition-all duration-250 ${
+            tier.highlighted ? "btn-primary" : "btn-secondary"
+          }`}
+        >
+          Book Strategy Call →
+        </a>
       </div>
     </div>
   );

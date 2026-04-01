@@ -42,7 +42,7 @@ export default function AuthorityStatement() {
     <section className="py-20 md:py-24 px-4 md:px-8 section-darker">
       <div className="container mx-auto max-w-3xl text-center" ref={ref}>
         <div className={`reveal ${revealed ? "revealed" : ""}`}>
-          <p className="text-section font-heading text-white leading-snug mb-3">
+          <p className="text-section font-heading leading-snug mb-3" style={{ color: "var(--text-primary)" }}>
             Most agencies sell services.
           </p>
           <p className="text-section font-heading leading-snug">
@@ -56,10 +56,10 @@ export default function AuthorityStatement() {
               key={index}
               className={`flex flex-col items-center gap-3 reveal-scale reveal-delay-${index + 3} ${revealed ? "revealed" : ""}`}
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 icon-glow">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 icon-glow">
                 {item.icon}
               </div>
-              <span className="text-[13px] sm:text-[15px] text-zinc-300 font-medium text-center leading-tight">
+              <span className="text-[13px] sm:text-[15px] font-medium text-center leading-tight" style={{ color: "var(--text-body)" }}>
                 {item.label}
               </span>
             </div>
