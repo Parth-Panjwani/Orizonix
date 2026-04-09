@@ -37,13 +37,13 @@ function AnimatedCounter({ end, suffix = "" }: { end: number; suffix: string }) 
 }
 
 /* ── Staggered word animation ── */
-const headlineWords = ["Turn", "Attention", "Into"];
-const gradientWords = ["Predictable", "Revenue"];
+const headlineWords = ["We", "Build", "Growth"];
+const gradientWords = ["Systems", "That", "Scale"];
 
 const trustStats = [
-  { value: 150, suffix: "+", label: "Campaigns" },
-  { value: 40, suffix: "+", label: "Brands" },
-  { value: 4.2, suffix: "x", label: "Avg ROI" },
+  { value: 150, suffix: "+", label: "Campaigns Delivered" },
+  { value: 40, suffix: "+", label: "Brands Scaled" },
+  { value: 4, suffix: ".2x", label: "Avg. ROI" },
 ];
 
 /* ── Floating data nodes ── */
@@ -53,8 +53,6 @@ const dataNodes = [
   { x: "78%", y: "72%", delay: 3, size: 7 },
   { x: "15%", y: "78%", delay: 2, size: 5 },
   { x: "52%", y: "12%", delay: 4, size: 6 },
-  { x: "35%", y: "85%", delay: 2.5, size: 4 },
-  { x: "65%", y: "30%", delay: 3.5, size: 4 },
 ];
 
 export default function Hero() {
@@ -81,7 +79,7 @@ export default function Hero() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-4 md:px-8 overflow-hidden section-dark"
+      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 md:px-8 overflow-hidden section-dark"
     >
       {/* Gradient Mesh Background */}
       <div className="hero-mesh" />
@@ -102,7 +100,7 @@ export default function Hero() {
 
       {/* Animated SVG Graph Line */}
       <svg
-        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.06] pointer-events-none"
+        className="absolute bottom-0 left-0 w-full h-48 opacity-[0.04] pointer-events-none"
         viewBox="0 0 1200 200"
         preserveAspectRatio="none"
       >
@@ -117,7 +115,7 @@ export default function Hero() {
         />
       </svg>
 
-      {/* Floating Data Nodes */}
+      {/* Floating Data Nodes — fewer, subtler */}
       {dataNodes.map((node, i) => (
         <motion.div
           key={i}
@@ -127,15 +125,15 @@ export default function Hero() {
             top: node.y,
             width: node.size,
             height: node.size,
-            background: "radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.1) 100%)",
-            boxShadow: "0 0 8px rgba(59,130,246,0.15)",
+            background: "radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(59,130,246,0.08) 100%)",
+            boxShadow: "0 0 6px rgba(59,130,246,0.1)",
           }}
           animate={{
-            y: [0, -16, 6, -10, 0],
-            opacity: [0.2, 0.5, 0.3, 0.6, 0.2],
+            y: [0, -12, 4, -8, 0],
+            opacity: [0.15, 0.4, 0.2, 0.45, 0.15],
           }}
           transition={{
-            duration: 10,
+            duration: 12,
             repeat: Infinity,
             delay: node.delay,
             ease: "easeInOut",
@@ -152,7 +150,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="text-sm md:text-base font-medium text-blue-500 tracking-widest uppercase mb-6"
         >
-          Revenue Growth Systems Partner
+          Digital Growth Partner
         </motion.p>
 
         {/* Headline — staggered words */}
@@ -177,7 +175,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
               className="inline-block mr-[0.3em] gradient-text"
               style={{
-                filter: "drop-shadow(0 0 20px rgba(37,99,235,0.15))",
+                filter: "drop-shadow(0 0 20px rgba(37,99,235,0.12))",
               }}
             >
               {word}
@@ -193,8 +191,8 @@ export default function Hero() {
           className="text-[17px] md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto"
           style={{ color: "var(--text-secondary)" }}
         >
-          We design and execute scalable growth systems that help ambitious
-          brands acquire customers, increase ROI, and grow sustainably.
+          Orizonix combines performance marketing, brand strategy, and intelligent
+          automation to help ambitious brands acquire customers and grow sustainably.
         </motion.p>
 
         {/* CTAs */}
@@ -211,14 +209,14 @@ export default function Hero() {
             Book a Strategy Call →
           </a>
           <a
-            href="#case-studies"
+            href="#projects"
             className="px-8 py-4 btn-secondary rounded-lg text-base"
           >
-            View Case Studies
+            See Our Work
           </a>
         </motion.div>
 
-        {/* Trust Strip — 3-col grid always */}
+        {/* Trust Strip — 3-col grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

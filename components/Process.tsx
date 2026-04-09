@@ -16,7 +16,7 @@ const steps = [
         <line x1="11" y1="8" x2="11" y2="14" />
       </svg>
     ),
-    description: "Data, funnel gaps, competitor landscape, CAC analysis.",
+    description: "Data analysis, funnel audit, competitor landscape, and unit economics mapping.",
     detail: "We deep-dive into your current marketing stack, identifying leaks in your funnel, benchmarking against competitors, and mapping unit economics to build the foundation for a scalable system.",
   },
   {
@@ -29,7 +29,7 @@ const steps = [
         <polyline points="2 12 12 17 22 12" />
       </svg>
     ),
-    description: "Channel mix, messaging architecture, budget allocation, KPI mapping.",
+    description: "Channel mix, messaging architecture, budget allocation, and KPI targeting.",
     detail: "We design a complete growth strategy — selecting the highest-ROI channels, crafting message-market fit, setting budget guardrails, and defining measurable success metrics.",
   },
   {
@@ -40,31 +40,22 @@ const steps = [
         <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
       </svg>
     ),
-    description: "Paid media, CRO, landing systems, creative testing.",
-    detail: "Our execution team launches campaigns, builds high-converting landing pages, runs systematic creative tests, and optimizes every touchpoint for maximum conversion.",
+    description: "Campaign launches, CRO, landing systems, creative testing, and automation setup.",
+    detail: "Our execution team launches campaigns, builds high-converting landing pages, runs systematic creative tests, and optimises every touchpoint for maximum conversion.",
   },
   {
     number: "04",
-    title: "Scale & Optimize",
+    title: "Scale & Optimise",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
         <polyline points="17 6 23 6 23 12" />
       </svg>
     ),
-    description: "Automation, CRM integration, advanced analytics, iterative scaling.",
-    detail: "Once the system proves ROI, we layer in automation, integrate your CRM, and use advanced analytics to systematically scale what works — turning campaigns into growth engines.",
+    description: "AI automation, CRM integration, advanced analytics, and iterative scaling.",
+    detail: "Once the system proves ROI, we layer in AI-powered automation, integrate your CRM, and use advanced analytics to systematically scale what works — turning campaigns into growth engines.",
   },
 ];
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, delay: i * 0.15, ease: [0.4, 0, 0.2, 1] },
-  }),
-};
 
 /* ── Flowing particles for desktop path ── */
 function FlowingParticles() {
@@ -114,13 +105,16 @@ export default function Process() {
   }, []);
 
   return (
-    <section className="py-20 md:py-24 px-4 md:px-8 section-darker" ref={revealRef}>
+    <section id="process" className="py-20 md:py-28 px-4 md:px-8 section-darker" ref={revealRef}>
       <div className="container mx-auto max-w-5xl" ref={sectionRef}>
         <div className={`text-center mb-14 reveal ${revealed ? "revealed" : ""}`}>
-          <span className="section-label mb-3 block">Our Process</span>
-          <h2 className="text-section font-heading" style={{ color: "var(--text-primary)" }}>
-            How We Drive Growth
+          <span className="section-label mb-3 block">How We Work</span>
+          <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
+            From Audit to Scale in 4 Steps
           </h2>
+          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+            A structured, repeatable process that turns strategy into predictable revenue.
+          </p>
         </div>
 
         {/* Desktop: Interactive Horizontal Diagram */}
@@ -148,7 +142,6 @@ export default function Process() {
                 animate={isInView ? { pathLength: 1 } : {}}
                 transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
               />
-              {/* Glow on active segment */}
               {activeStep !== null && activeStep < 3 && (
                 <line
                   x1={activeStep * 230}
@@ -200,7 +193,6 @@ export default function Process() {
                     {step.title}
                   </h3>
 
-                  {/* Short description always visible */}
                   <p className="text-[15px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                     {step.description}
                   </p>

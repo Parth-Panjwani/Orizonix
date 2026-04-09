@@ -3,13 +3,11 @@
 import { useState, useCallback } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Problem from "@/components/Problem";
-import AuthorityStatement from "@/components/AuthorityStatement";
-import Process from "@/components/Process";
+import WhoWeAre from "@/components/WhoWeAre";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
 import CaseStudies from "@/components/CaseStudies";
 import SocialProof from "@/components/SocialProof";
-import Pricing from "@/components/Pricing";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -35,19 +33,15 @@ export default function Home() {
         <Header />
         <Hero />
         <div className="section-divider" />
-        <Problem />
-        <div className="section-divider" />
-        <AuthorityStatement />
-        <div className="section-divider" />
-        <Process />
+        <WhoWeAre />
         <div className="section-divider" />
         <Services />
+        <div className="section-divider" />
+        <Process />
         <div className="section-divider" />
         <CaseStudies />
         <div className="section-divider" />
         <SocialProof />
-        <div className="section-divider" />
-        <Pricing />
         <div className="section-divider" />
         <Contact />
         <Footer />

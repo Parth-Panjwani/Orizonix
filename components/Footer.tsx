@@ -6,9 +6,9 @@ import { useReveal } from "@/hooks/useReveal";
 export default function Footer() {
   const { ref, revealed } = useReveal();
   const navLinks = [
+    { href: "#about", label: "About" },
     { href: "#services", label: "Services" },
-    { href: "#case-studies", label: "Case Studies" },
-    { href: "#pricing", label: "Pricing" },
+    { href: "#projects", label: "Projects" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -35,7 +35,7 @@ export default function Footer() {
                 Orizonix
               </span>
               <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-                Revenue Growth Systems Partner
+                Digital Growth Partner
               </p>
             </div>
           </div>

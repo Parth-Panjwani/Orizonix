@@ -6,9 +6,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
+  { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
+  { href: "#process", label: "How We Work" },
   { href: "#projects", label: "Projects" },
-  { href: "#pricing", label: "Pricing" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -36,19 +37,16 @@ export default function Header() {
 
   /* ── IntersectionObserver — update active link on scroll ── */
   useEffect(() => {
-    // Map: sectionId → ratio currently visible
     const ratioMap: Record<string, number> = {};
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // If user just clicked a link, let the click-set value win for 800ms
         if (clickedRef.current) return;
 
         entries.forEach((entry) => {
           ratioMap[entry.target.id] = entry.intersectionRatio;
         });
 
-        // Pick the section with the highest visible ratio
         let bestId = "";
         let bestRatio = 0;
         for (const id of sectionIds) {
@@ -58,10 +56,7 @@ export default function Header() {
         if (bestId) setActiveLink(`#${bestId}`);
       },
       {
-        // Fire at these intersection thresholds
         threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-        // Shrink the top of the viewport by 80px (header height) so sections
-        // become "active" right when they scroll into view below the header
         rootMargin: "-80px 0px -40% 0px",
       }
     );
@@ -79,7 +74,6 @@ export default function Header() {
     setMobileOpen(false);
     setActiveLink(href);
 
-    // Suppress observer override for 1s while smooth-scroll plays out
     clickedRef.current = href;
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     clickTimerRef.current = setTimeout(() => {
@@ -92,7 +86,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Header bar — z-[60] so it stays above the mobile overlay */}
       <header
         className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
           scrolled || mobileOpen ? "glass-strong py-3" : "py-5"
@@ -143,7 +136,7 @@ export default function Header() {
               onClick={handleLinkClick("#contact")}
               className="px-6 py-2.5 btn-primary text-sm rounded-lg"
             >
-              Book a Strategy Call
+              Get Started
             </a>
           </div>
 
@@ -179,7 +172,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay — z-50, BELOW the header (z-60) so close button works */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -209,10 +202,10 @@ export default function Header() {
               onClick={handleLinkClick("#contact")}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
+              transition={{ delay: 0.4 }}
               className="px-8 py-3 btn-primary text-base rounded-lg mt-4"
             >
-              Book a Strategy Call
+              Get Started
             </motion.a>
           </motion.div>
         )}
