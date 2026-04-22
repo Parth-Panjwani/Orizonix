@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const inter = Inter({ 
@@ -44,6 +45,19 @@ export default function RootLayout({
     <html lang="en" data-theme="light" suppressHydrationWarning>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         {children}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8C4Q7HL515"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'G-8C4Q7HL515');
+          `}
+        </Script>
       </body>
     </html>
   )
