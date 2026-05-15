@@ -9,27 +9,28 @@ module.exports = {
     extend: {
       colors: {
         surface: {
-          DEFAULT: '#0B0F1A',
-          alt: '#111827',
-          elevated: '#1a2236',
-          border: 'rgba(255, 255, 255, 0.06)',
+          DEFAULT: '#0a0a0a',
+          alt: '#111111',
+          elevated: '#1a1a1a',
+          border: 'rgba(212, 168, 83, 0.08)',
         },
-        blue: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60A5FA',
-          500: '#3B82F6',
-          600: '#2563EB',
-          700: '#1D4ED8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+        gold: {
+          50: '#fdf8ed',
+          100: '#f9edc8',
+          200: '#f2d98a',
+          300: '#e8c25a',
+          400: '#D4A853',
+          500: '#C4963E',
+          600: '#A67B2D',
+          700: '#886420',
+          800: '#6b4f18',
+          900: '#4e3a12',
         },
       },
       fontFamily: {
         heading: ['Space Grotesk', 'var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
         body: ['Inter', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        brand: ['TAN Meringue', 'Georgia', 'serif'],
       },
       container: {
         center: true,
@@ -41,10 +42,10 @@ module.exports = {
         },
       },
       fontSize: {
-        'hero': ['clamp(3.25rem, 6.5vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' }],
-        'section': ['clamp(2.5rem, 4.5vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '700' }],
-        'card-title': ['clamp(1.125rem, 2vw, 1.375rem)', { lineHeight: '1.3', fontWeight: '600' }],
-        'stat': ['clamp(2.25rem, 4vw, 3rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'hero': ['clamp(2.25rem, 6.5vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' }],
+        'section': ['clamp(1.75rem, 4.5vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '700' }],
+        'card-title': ['clamp(1rem, 1.8vw, 1.375rem)', { lineHeight: '1.3', fontWeight: '600' }],
+        'stat': ['clamp(1.75rem, 4vw, 3rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '700' }],
       },
       borderRadius: {
         'card': '12px',

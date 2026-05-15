@@ -16,7 +16,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
   useEffect(() => {
     // Skip if already loaded this session
     try {
-      if (sessionStorage.getItem("orizonix-loaded")) {
+      if (sessionStorage.getItem("auravis-loaded")) {
         setSkip(true);
         setVisible(false);
         onCompleteRef.current();
@@ -33,7 +33,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
     const timer = setTimeout(() => {
       setVisible(false);
       try {
-        sessionStorage.setItem("orizonix-loaded", "1");
+        sessionStorage.setItem("auravis-loaded", "1");
       } catch {
         // ignore
       }
@@ -66,7 +66,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
               className="absolute top-1/2 -translate-y-1/2 w-64 h-[500px] loader-sweep"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(37,99,235,0.08) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at center, rgba(212,168,83,0.08) 0%, transparent 70%)",
                 filter: "blur(40px)",
               }}
             />
@@ -81,19 +81,19 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
           >
             <div
               className="w-16 h-16 rounded-xl overflow-hidden mb-4"
-              style={{ filter: "drop-shadow(0 0 16px rgba(59,130,246,0.3))" }}
+              style={{ filter: "drop-shadow(0 0 16px rgba(212,168,83,0.3))" }}
             >
               <Image
-                src="/Orizonix.png"
-                alt="Orizonix"
+                src="/Auravis.png"
+                alt="Auravis"
                 width={64}
                 height={64}
                 className="object-contain"
                 priority
               />
             </div>
-            <span className="text-lg font-heading font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
-              Orizonix
+            <span className="text-lg font-brand font-semibold tracking-tight" style={{ color: "var(--text-primary)" }}>
+              Auravis
             </span>
           </motion.div>
 
@@ -103,7 +103,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
               className="absolute inset-0 rounded-full loader-progress"
               style={{
                 background:
-                  "linear-gradient(90deg, #2563EB 0%, #60A5FA 60%, #2563EB 100%)",
+                  "linear-gradient(90deg, #D4A853 0%, #e8c25a 60%, #D4A853 100%)",
               }}
             />
           </div>

@@ -43,40 +43,40 @@ export default function WhoWeAre() {
   const { ref, revealed } = useReveal();
 
   return (
-    <section id="about" className="py-20 md:py-28 px-4 md:px-8 section-darker">
+    <section id="about" className="py-14 md:py-28 px-4 md:px-8 section-darker">
       <div className="container mx-auto max-w-5xl" ref={ref}>
         {/* Editorial Statement */}
-        <div className={`text-center mb-16 reveal ${revealed ? "revealed" : ""}`}>
+        <div className={`text-center mb-10 md:mb-16 reveal ${revealed ? "revealed" : ""}`}>
           <span className="section-label mb-4 block">Who We Are</span>
           <h2
-            className="text-section font-heading mb-5"
+            className="text-section font-heading mb-3 md:mb-5"
             style={{ color: "var(--text-primary)" }}
           >
             We&apos;re not another marketing agency.
           </h2>
           <p
-            className="text-section font-heading"
+            className="text-xl md:text-section font-heading"
           >
             <span className="gradient-text">We&apos;re your growth engineering partner.</span>
           </p>
           <p
-            className="text-[17px] md:text-lg max-w-2xl mx-auto mt-6 leading-relaxed"
+            className="text-[15px] md:text-[17px] max-w-2xl mx-auto mt-4 md:mt-6 leading-relaxed"
             style={{ color: "var(--text-secondary)" }}
           >
-            Orizonix combines performance marketing, brand strategy, web development, and
+            Auravis combines performance marketing, brand strategy, web development, and
             intelligent automation to help ambitious brands build predictable, scalable
             revenue engines — not just run ads.
           </p>
         </div>
 
         {/* Differentiation Pillars */}
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid md:grid-cols-3 gap-3 md:gap-6">
           {differentiators.map((item, index) => (
             <div
               key={index}
               className={`glass-card rounded-xl p-6 md:p-8 text-center reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 icon-glow mx-auto mb-5">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center icon-glow mx-auto mb-5" style={{ background: "rgba(212,168,83,0.1)", color: "#D4A853" }}>
                 {item.icon}
               </div>
               <h3

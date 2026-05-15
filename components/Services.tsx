@@ -88,7 +88,7 @@ export default function Services() {
           <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             End-to-End Growth Services
           </h2>
-          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-[14px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             Every service connects directly to revenue growth. No vanity deliverables.
           </p>
         </div>
@@ -121,14 +121,14 @@ export default function Services() {
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center icon-glow mb-4"
                 style={{
-                  background: service.accent ? "rgba(139, 92, 246, 0.1)" : "rgba(37, 99, 235, 0.1)",
-                  color: service.accent ? "#8B5CF6" : "#3B82F6",
+                  background: service.accent ? "rgba(139, 92, 246, 0.1)" : "rgba(212, 168, 83, 0.1)",
+                  color: service.accent ? "#8B5CF6" : "#D4A853",
                 }}
               >
                 {service.icon}
               </div>
 
-              <h3 className="text-[16px] md:text-[17px] font-heading font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
+              <h3 className="text-[15px] md:text-[17px] font-heading font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
                 {service.title}
               </h3>
 
@@ -142,9 +142,9 @@ export default function Services() {
                     key={i}
                     className="px-2.5 py-1 text-[11px] font-medium rounded-full"
                     style={{
-                      background: service.accent ? "rgba(139, 92, 246, 0.08)" : "rgba(37, 99, 235, 0.08)",
-                      color: service.accent ? "#8B5CF6" : "#3B82F6",
-                      border: `1px solid ${service.accent ? "rgba(139, 92, 246, 0.15)" : "rgba(37, 99, 235, 0.12)"}`,
+                      background: service.accent ? "rgba(139, 92, 246, 0.08)" : "rgba(212, 168, 83, 0.08)",
+                      color: service.accent ? "#8B5CF6" : "#D4A853",
+                      border: `1px solid ${service.accent ? "rgba(139, 92, 246, 0.15)" : "rgba(212, 168, 83, 0.15)"}`,
                     }}
                   >
                     {highlight}

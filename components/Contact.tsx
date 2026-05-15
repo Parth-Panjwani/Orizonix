@@ -12,7 +12,7 @@ function GrowthGraphic() {
       <div
         className="absolute w-72 h-72 rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(212,168,83,0.1) 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
       />
@@ -30,9 +30,9 @@ function GrowthGraphic() {
         <motion.div
           className="relative rounded-2xl p-6 w-[280px] sm:w-[300px]"
           style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.8) 100%)",
-            border: "1px solid rgba(59,130,246,0.12)",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 0 30px rgba(37,99,235,0.06)",
+            background: "linear-gradient(135deg, rgba(20,20,20,0.9) 0%, rgba(26,26,26,0.8) 100%)",
+            border: "1px solid rgba(212,168,83,0.12)",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.2), 0 0 30px rgba(212,168,83,0.06)",
             transformStyle: "preserve-3d",
           }}
           animate={{
@@ -53,7 +53,7 @@ function GrowthGraphic() {
                 Growth Dashboard
               </span>
             </div>
-            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500">Live</span>
+            <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-gold-400/10 text-gold-400">Live</span>
           </div>
 
           {/* Revenue Stat */}
@@ -71,17 +71,17 @@ function GrowthGraphic() {
           </div>
 
           {/* Animated Chart */}
-          <div className="mb-4 rounded-lg p-3" style={{ background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.06)" }}>
+          <div className="mb-4 rounded-lg p-3" style={{ background: "rgba(212,168,83,0.03)", border: "1px solid rgba(212,168,83,0.08)" }}>
             <svg viewBox="0 0 240 60" className="w-full h-14">
               <defs>
                 <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#D4A853" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#D4A853" stopOpacity="0" />
                 </linearGradient>
               </defs>
               {/* Grid lines */}
               {[15, 30, 45].map((y) => (
-                <line key={y} x1="0" y1={y} x2="240" y2={y} stroke="rgba(37,99,235,0.06)" strokeWidth="1" />
+                <line key={y} x1="0" y1={y} x2="240" y2={y} stroke="rgba(212,168,83,0.06)" strokeWidth="1" />
               ))}
               {/* Area fill */}
               <motion.path
@@ -95,7 +95,7 @@ function GrowthGraphic() {
               <motion.path
                 d="M0 50 Q30 45 60 40 T120 30 T180 18 T240 8"
                 fill="none"
-                stroke="#3B82F6"
+                stroke="#D4A853"
                 strokeWidth="2"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
@@ -105,7 +105,7 @@ function GrowthGraphic() {
               {/* Dot at end */}
               <motion.circle
                 cx="240" cy="8" r="3"
-                fill="#3B82F6"
+                fill="#D4A853"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 2.5, duration: 0.3 }}
@@ -113,7 +113,7 @@ function GrowthGraphic() {
               <motion.circle
                 cx="240" cy="8" r="6"
                 fill="none"
-                stroke="#3B82F6"
+                stroke="#D4A853"
                 strokeWidth="1"
                 opacity="0.3"
                 initial={{ opacity: 0, scale: 0 }}
@@ -133,7 +133,7 @@ function GrowthGraphic() {
               <motion.div
                 key={i}
                 className="text-center rounded-lg p-2"
-                style={{ background: "rgba(37,99,235,0.04)" }}
+                style={{ background: "rgba(212,168,83,0.04)" }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 + i * 0.15 }}
@@ -150,9 +150,9 @@ function GrowthGraphic() {
       <motion.div
         className="absolute w-10 h-10 rounded-xl flex items-center justify-center"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,245,249,0.9))",
-          border: "1px solid rgba(59,130,246,0.12)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+          background: "linear-gradient(135deg, rgba(20,20,20,0.95), rgba(26,26,26,0.9))",
+          border: "1px solid rgba(212,168,83,0.12)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
           top: "12%",
           right: "8%",
         }}
@@ -162,7 +162,7 @@ function GrowthGraphic() {
         }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
           <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
         </svg>
       </motion.div>
@@ -170,9 +170,9 @@ function GrowthGraphic() {
       <motion.div
         className="absolute w-10 h-10 rounded-xl flex items-center justify-center"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,245,249,0.9))",
+          background: "linear-gradient(135deg, rgba(20,20,20,0.95), rgba(26,26,26,0.9))",
           border: "1px solid rgba(139,92,246,0.12)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
           bottom: "18%",
           left: "5%",
         }}
@@ -190,9 +190,9 @@ function GrowthGraphic() {
       <motion.div
         className="absolute w-8 h-8 rounded-lg flex items-center justify-center"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,245,249,0.9))",
+          background: "linear-gradient(135deg, rgba(20,20,20,0.95), rgba(26,26,26,0.9))",
           border: "1px solid rgba(16,185,129,0.12)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
           top: "65%",
           right: "3%",
         }}
@@ -216,7 +216,7 @@ function GrowthGraphic() {
       ].map((dot, i) => (
         <motion.div
           key={i}
-          className="absolute w-1.5 h-1.5 rounded-full bg-blue-400/30"
+          className="absolute w-1.5 h-1.5 rounded-full bg-gold-400/30"
           style={{ left: dot.x, top: dot.y }}
           animate={{
             opacity: [0.2, 0.6, 0.2],
@@ -292,7 +292,7 @@ export default function Contact() {
           <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Ready to Build Predictable Growth?
           </h2>
-          <p className="text-[16px] md:text-[17px]" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-[14px] md:text-[17px]" style={{ color: "var(--text-secondary)" }}>
             Tell us about your business. We&apos;ll show you what&apos;s possible.
           </p>
         </div>
@@ -301,7 +301,7 @@ export default function Contact() {
           {/* Left — 3D Animated Graphic */}
           <div className="hidden md:flex flex-1 items-center justify-center rounded-2xl overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(241,245,249,0.6) 0%, rgba(248,250,252,0.4) 100%)",
+              background: "linear-gradient(135deg, rgba(26,26,26,0.6) 0%, rgba(17,17,17,0.4) 100%)",
               border: "1px solid var(--border-subtle)",
             }}
           >
@@ -318,7 +318,7 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className={`p-4 rounded-lg text-[14px] ${
                       formStatus.type === "success"
-                        ? "bg-blue-500/10 text-blue-600 border border-blue-500/20"
+                        ? "bg-gold-400/10 text-gold-400 border border-gold-400/20"
                         : "bg-red-500/10 text-red-500 border border-red-500/20"
                     }`}
                   >
@@ -328,7 +328,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="name" className="block text-[13px] mb-1.5 font-medium" style={{ color: "var(--text-secondary)" }}>
-                    Name <span className="text-blue-500">*</span>
+                    Name <span className="text-gold-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -342,7 +342,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="phone" className="block text-[13px] mb-1.5 font-medium" style={{ color: "var(--text-secondary)" }}>
-                    Contact Number <span className="text-blue-500">*</span>
+                    Contact Number <span className="text-gold-400">*</span>
                   </label>
                   <input
                     type="tel"
@@ -356,7 +356,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="company" className="block text-[13px] mb-1.5 font-medium" style={{ color: "var(--text-secondary)" }}>
-                    Company <span className="text-blue-500">*</span>
+                    Company <span className="text-gold-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -383,7 +383,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="budget" className="block text-[13px] mb-1.5 font-medium" style={{ color: "var(--text-secondary)" }}>
-                    Monthly Marketing Budget <span className="text-blue-500">*</span>
+                    Monthly Marketing Budget <span className="text-gold-400">*</span>
                   </label>
                   <select
                     id="budget"

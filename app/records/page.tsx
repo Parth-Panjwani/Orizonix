@@ -124,7 +124,7 @@ export default function RecordsDashboard() {
             <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <LayoutDashboard size={24} />
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">Orizonix CRM</h1>
+            <h1 className="text-2xl font-bold text-slate-900 mb-2">Auravis CRM</h1>
             <p className="text-sm text-slate-500">Secure access required.</p>
           </div>
 
@@ -174,7 +174,7 @@ export default function RecordsDashboard() {
         <div className="p-6 border-b border-slate-100">
           <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
             <Target size={22} className="text-blue-600" />
-            Orizonix CRM
+            Auravis CRM
           </h1>
         </div>
         

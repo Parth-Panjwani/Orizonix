@@ -42,14 +42,14 @@ export async function POST(request: Request) {
     });
 
     const mailOptions = {
-      from: '"Orizonix Contact Form" <theorizonix@gmail.com>',
+      from: '"Auravis Contact Form" <theorizonix@gmail.com>',
       to: "theorizonix@gmail.com",
-      replyTo: `${name} <no-reply@orizonix.com>`, // We don't have their email in the form, so just a generic replyTo
+      replyTo: `${name} <no-reply@auravis.com>`, // We don't have their email in the form, so just a generic replyTo
       subject: `New Lead: ${name} from ${company}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-          <h2 style="color: #2563eb; margin-top: 0;">New Contact Form Submission</h2>
-          <p style="color: #475569; font-size: 15px;">You have received a new lead from the Orizonix website.</p>
+          <h2 style="color: #D4A853; margin-top: 0;">New Contact Form Submission</h2>
+          <p style="color: #475569; font-size: 15px;">You have received a new lead from the Auravis website.</p>
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <tr>
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
             <tr>
               <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: bold;">Phone</td>
               <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">
-                <a href="tel:${phone}" style="color: #2563eb; text-decoration: none;">${phone}</a>
+                <a href="tel:${phone}" style="color: #D4A853; text-decoration: none;">${phone}</a>
               </td>
             </tr>
             <tr>
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
             <tr>
               <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color: #64748b; font-weight: bold;">Website</td>
               <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">
-                ${website ? `<a href="${website.startsWith('http') ? website : `https://${website}`}" target="_blank" style="color: #2563eb; text-decoration: none;">${website}</a>` : "Not provided"}
+                ${website ? `<a href="${website.startsWith('http') ? website : `https://${website}`}" target="_blank" style="color: #D4A853; text-decoration: none;">${website}</a>` : "Not provided"}
               </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
           </table>
           
           <p style="margin-top: 30px; font-size: 12px; color: #94a3b8;">
-            Submitted on Orizonix.com at ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
+            Submitted on Auravis.com at ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
           </p>
         </div>
       `,

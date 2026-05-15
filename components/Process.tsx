@@ -62,7 +62,7 @@ function FlowingParticles() {
   return (
     <g className="flowing-particles">
       {[0, 1, 2].map((i) => (
-        <circle key={i} r="2.5" fill="#3B82F6" opacity="0">
+        <circle key={i} r="2.5" fill="#D4A853" opacity="0">
           <animateMotion
             dur="4s"
             repeatCount="indefinite"
@@ -112,7 +112,7 @@ export default function Process() {
           <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             From Audit to Scale in 4 Steps
           </h2>
-          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-[14px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             A structured, repeatable process that turns strategy into predictable revenue.
           </p>
         </div>
@@ -129,13 +129,13 @@ export default function Process() {
             >
               <motion.line
                 x1="0" y1="2" x2="690" y2="2"
-                stroke="rgba(37,99,235,0.12)"
+                stroke="rgba(212,168,83,0.12)"
                 strokeWidth="2"
                 strokeLinecap="round"
               />
               <motion.line
                 x1="0" y1="2" x2="690" y2="2"
-                stroke="#2563EB"
+                stroke="#D4A853"
                 strokeWidth="2"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
@@ -148,10 +148,10 @@ export default function Process() {
                   y1="2"
                   x2={(activeStep + 1) * 230}
                   y2="2"
-                  stroke="#3B82F6"
+                  stroke="#D4A853"
                   strokeWidth="4"
                   strokeLinecap="round"
-                  style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.5))" }}
+                  style={{ filter: "drop-shadow(0 0 8px rgba(212,168,83,0.5))" }}
                 />
               )}
               {isInView && <FlowingParticles />}
@@ -169,8 +169,8 @@ export default function Process() {
                   <motion.div
                     className={`w-[72px] h-[72px] rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10 transition-all duration-300 border ${
                       activeStep === index
-                        ? "bg-blue-500/15 border-blue-400 shadow-[0_0_20px_rgba(37,99,235,0.15)]"
-                        : "border-blue-500/20"
+                        ? "bg-gold-400/15 border-gold-400 shadow-[0_0_20px_rgba(212,168,83,0.15)]"
+                        : "border-gold-400/20"
                     }`}
                     style={{
                       background: activeStep === index ? undefined : "var(--bg-elevated)",
@@ -182,9 +182,9 @@ export default function Process() {
                     }
                     transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                   >
-                    <div className={`text-blue-500 transition-all duration-300 ${
+                    <div className={`transition-all duration-300 ${
                       activeStep === index ? "scale-110" : ""
-                    }`}>
+                    }`} style={{ color: "#D4A853" }}>
                       {step.icon}
                     </div>
                   </motion.div>
@@ -230,7 +230,7 @@ export default function Process() {
               style={{ background: "var(--border-subtle)", transformOrigin: "top" }}
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-blue-500 to-blue-500/20"
+                className="absolute inset-0 bg-gradient-to-b from-gold-400 to-gold-400/20"
                 initial={{ scaleY: 0 }}
                 animate={isInView ? { scaleY: 1 } : {}}
                 transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
@@ -247,10 +247,10 @@ export default function Process() {
                 >
                   {/* Node dot */}
                   <div
-                    className="absolute -left-8 top-3 w-[30px] h-[30px] rounded-lg border border-blue-500/30 flex items-center justify-center z-10"
+                    className="absolute -left-8 top-3 w-[30px] h-[30px] rounded-lg border border-gold-400/30 flex items-center justify-center z-10"
                     style={{ background: "var(--bg-elevated)" }}
                   >
-                    <span className="text-[10px] font-heading font-bold text-blue-500">
+                    <span className="text-[10px] font-heading font-bold text-gold-400">
                       {step.number}
                     </span>
                   </div>

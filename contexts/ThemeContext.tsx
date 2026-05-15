@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("orizonix-theme") as Theme | null;
+    const saved = localStorage.getItem("auravis-theme") as Theme | null;
     if (saved === "light" || saved === "dark") {
       setTheme(saved);
       document.documentElement.setAttribute("data-theme", saved);
@@ -30,7 +30,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
       const next = prev === "dark" ? "light" : "dark";
-      localStorage.setItem("orizonix-theme", next);
+      localStorage.setItem("auravis-theme", next);
       document.documentElement.setAttribute("data-theme", next);
       return next;
     });

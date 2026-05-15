@@ -44,14 +44,14 @@ function MiniGraph() {
     <svg viewBox="0 0 200 60" className="w-full h-16 opacity-60" preserveAspectRatio="none">
       <defs>
         <linearGradient id="graphGradProj" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+          <stop offset="0%" stopColor="#D4A853" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#D4A853" stopOpacity="0" />
         </linearGradient>
       </defs>
       <motion.path
         d="M0 55 Q20 50 40 45 T80 35 T120 25 T160 15 T200 8"
         fill="none"
-        stroke="#3B82F6"
+        stroke="#D4A853"
         strokeWidth="2"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
@@ -212,10 +212,10 @@ function ProjectModal({
             {/* Header */}
             <div className="flex items-start justify-between mb-6">
               <div>
-                <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-500/10 text-blue-500 rounded-full mb-3">
+                <span className="inline-block px-3 py-1 text-xs font-semibold bg-gold-400/10 text-gold-400 rounded-full mb-3">
                   {project.tag}
                 </span>
-                <h3 className="text-2xl md:text-[26px] font-heading font-bold" style={{ color: "var(--text-primary)" }}>
+                <h3 className="text-xl md:text-[26px] font-heading font-bold" style={{ color: "var(--text-primary)" }}>
                   {project.title}
                 </h3>
                 <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
@@ -237,7 +237,7 @@ function ProjectModal({
 
             {/* Challenge */}
             <div className="mb-5">
-              <p className="text-xs uppercase tracking-wider text-blue-500 font-semibold mb-2">Challenge</p>
+              <p className="text-xs uppercase tracking-wider text-gold-400 font-semibold mb-2">Challenge</p>
               <p className="text-[15px] leading-relaxed" style={{ color: "var(--text-body)" }}>
                 {project.challenge}
               </p>
@@ -245,7 +245,7 @@ function ProjectModal({
 
             {/* Strategy */}
             <div className="mb-5">
-              <p className="text-xs uppercase tracking-wider text-blue-500 font-semibold mb-2">Strategy</p>
+              <p className="text-xs uppercase tracking-wider text-gold-400 font-semibold mb-2">Strategy</p>
               <div className="grid grid-cols-2 gap-2">
                 {project.strategy.map((s, i) => (
                   <motion.div
@@ -256,7 +256,7 @@ function ProjectModal({
                     className="flex items-center gap-2 text-[14px]"
                     style={{ color: "var(--text-secondary)" }}
                   >
-                    <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 bg-gold-400 rounded-full flex-shrink-0" />
                     {s}
                   </motion.div>
                 ))}
@@ -265,7 +265,7 @@ function ProjectModal({
 
             {/* Implementation */}
             <div className="mb-5">
-              <p className="text-xs uppercase tracking-wider text-blue-500 font-semibold mb-2">What We Did</p>
+              <p className="text-xs uppercase tracking-wider text-gold-400 font-semibold mb-2">What We Did</p>
               <p className="text-[14px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {project.implementation}
               </p>
@@ -281,7 +281,7 @@ function ProjectModal({
 
             {/* Results */}
             <div>
-              <p className="text-xs uppercase tracking-wider text-blue-500 font-semibold mb-3">
+              <p className="text-xs uppercase tracking-wider text-gold-400 font-semibold mb-3">
                 Results ({project.period})
               </p>
               <div className="grid grid-cols-3 gap-3">
@@ -292,9 +292,9 @@ function ProjectModal({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 + i * 0.08 }}
                     className="rounded-xl p-4 text-center"
-                    style={{ background: "rgba(37,99,235,0.06)", border: "1px solid rgba(37,99,235,0.1)" }}
+                    style={{ background: "rgba(212,168,83,0.06)", border: "1px solid rgba(212,168,83,0.1)" }}
                   >
-                    <div className="text-2xl md:text-3xl font-heading font-bold mb-1" style={{ color: "var(--text-primary)" }}>
+                    <div className="text-xl md:text-3xl font-heading font-bold mb-1" style={{ color: "var(--text-primary)" }}>
                       <ModalCounter
                         end={result.metric}
                         suffix={
@@ -318,6 +318,7 @@ function ProjectModal({
   );
 }
 
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const { ref, revealed } = useReveal();
@@ -330,7 +331,7 @@ export default function Projects() {
           <h2 className="text-section font-heading mb-4" style={{ color: "var(--text-primary)" }}>
             Projects We&apos;ve Delivered
           </h2>
-          <p className="text-[16px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-[14px] md:text-[17px] max-w-xl mx-auto" style={{ color: "var(--text-secondary)" }}>
             Real strategies. Measurable outcomes. Here&apos;s how we help brands grow.
           </p>
         </div>
@@ -342,7 +343,7 @@ export default function Projects() {
               className={`glass-card rounded-xl overflow-hidden flex flex-col reveal reveal-delay-${index + 1} ${revealed ? "revealed" : ""}`}
             >
               <div className="p-5 sm:p-6 pb-0">
-                <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-500/10 text-blue-500 rounded-full mb-4">
+                <span className="inline-block px-3 py-1 text-xs font-semibold bg-gold-400/10 text-gold-400 rounded-full mb-4">
                   {project.tag}
                 </span>
                 <h3 className="text-card-title font-heading font-bold mb-3" style={{ color: "var(--text-primary)" }}>
@@ -364,21 +365,21 @@ export default function Projects() {
                 <ul className="space-y-1 mb-4">
                   {project.strategy.map((s, i) => (
                     <li key={i} className="text-[14px] sm:text-[15px] flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
-                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-gold-400 rounded-full flex-shrink-0" />
                       {s}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="p-5 sm:p-6" style={{ borderTop: "1px solid var(--border-subtle)", background: "rgba(37,99,235,0.02)" }}>
+              <div className="p-5 sm:p-6" style={{ borderTop: "1px solid var(--border-subtle)", background: "rgba(212,168,83,0.02)" }}>
                 <p className="text-xs uppercase tracking-wider mb-3" style={{ color: "var(--text-muted)" }}>
                   Results ({project.period})
                 </p>
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   {project.results.map((result, i) => (
                     <div key={i} className="text-center">
-                      <div className="text-lg sm:text-xl font-heading font-bold text-blue-500">
+                      <div className="text-lg sm:text-xl font-heading font-bold text-gold-400">
                         {result.metric}
                       </div>
                       <div className="text-[10px] sm:text-[11px] leading-tight mt-0.5" style={{ color: "var(--text-muted)" }}>
@@ -389,7 +390,7 @@ export default function Projects() {
                 </div>
                 <button
                   onClick={() => setSelectedProject(project)}
-                  className="w-full py-2.5 rounded-lg text-[13px] font-semibold text-blue-500 border border-blue-500/20 hover:bg-blue-500/8 hover:border-blue-500/35 transition-all duration-250 cursor-pointer"
+                  className="w-full py-2.5 rounded-lg text-[13px] font-semibold text-gold-400 border border-gold-400/20 hover:bg-gold-400/8 hover:border-gold-400/35 transition-all duration-250 cursor-pointer"
                 >
                   View Full Project →
                 </button>

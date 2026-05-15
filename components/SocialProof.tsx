@@ -47,7 +47,7 @@ const stats = [
 
 const testimonials = [
   {
-    quote: "Orizonix didn't just run ads. They built a structured growth engine for us.",
+    quote: "Auravis didn't just run ads. They built a structured growth engine for us.",
     name: "Founder",
     company: "SaaS Startup",
   },
@@ -67,7 +67,7 @@ export default function SocialProof() {
   const { ref, revealed } = useReveal();
 
   return (
-    <section className="py-20 md:py-24 px-4 md:px-8 section-dark">
+    <section id="testimonials" className="py-20 md:py-24 px-4 md:px-8 section-dark">
       <div className="container mx-auto max-w-5xl" ref={ref}>
         {/* Stats Bar */}
         <div className={`grid grid-cols-3 gap-4 sm:gap-8 py-8 sm:py-10 px-4 sm:px-8 md:px-12 glass-card rounded-xl mb-14 reveal ${revealed ? "revealed" : ""}`}>
@@ -99,7 +99,8 @@ export default function SocialProof() {
               className={`glass-card rounded-xl p-5 sm:p-6 md:p-8 flex flex-col reveal reveal-delay-${index + 2} ${revealed ? "revealed" : ""}`}
             >
               <svg
-                className="w-8 h-8 text-blue-400/40 mb-4"
+                className="w-8 h-8 mb-4"
+                style={{ color: "rgba(212,168,83,0.3)" }}
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >

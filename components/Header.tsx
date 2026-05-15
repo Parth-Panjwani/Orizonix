@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#process", label: "How We Work" },
   { href: "#projects", label: "Projects" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -35,41 +36,41 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  /* ── IntersectionObserver — update active link on scroll ── */
+  /* ── Scroll-based active section tracking ── */
   useEffect(() => {
-    const ratioMap: Record<string, number> = {};
+    const handleScroll = () => {
+      if (clickedRef.current) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (clickedRef.current) return;
+      const scrollY = window.scrollY + window.innerHeight * 0.35;
+      let currentId = "";
 
-        entries.forEach((entry) => {
-          ratioMap[entry.target.id] = entry.intersectionRatio;
-        });
-
-        let bestId = "";
-        let bestRatio = 0;
-        for (const id of sectionIds) {
-          const r = ratioMap[id] ?? 0;
-          if (r > bestRatio) { bestRatio = r; bestId = id; }
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollY >= top) {
+            currentId = id;
+          }
         }
-        if (bestId) setActiveLink(`#${bestId}`);
-      },
-      {
-        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-        rootMargin: "-80px 0px -40% 0px",
       }
-    );
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      if (currentId) {
+        setActiveLink(`#${currentId}`);
+      } else {
+        setActiveLink("");
+      }
+    };
 
-    return () => observer.disconnect();
+    // Run once initially after sections render
+    const timer = setTimeout(handleScroll, 200);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const handleLinkClick = (href: string) => (e: React.MouseEvent) => {
+  const handleLinkClick = useCallback((href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setMobileOpen(false);
     setActiveLink(href);
@@ -78,11 +79,11 @@ export default function Header() {
     if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     clickTimerRef.current = setTimeout(() => {
       clickedRef.current = null;
-    }, 1000);
+    }, 1200);
 
     const target = document.querySelector(href);
     target?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <>
@@ -93,38 +94,40 @@ export default function Header() {
       >
         <div className="container mx-auto max-w-6xl px-4 md:px-8 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <div
-              className="relative flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden"
-              style={{ filter: "drop-shadow(0 0 12px rgba(59,130,246,0.25))" }}
+              className="relative flex-shrink-0 w-9 h-9 rounded-lg overflow-hidden"
+              style={{ filter: "drop-shadow(0 0 12px rgba(212,168,83,0.25))" }}
             >
               <Image
-                src="/Orizonix.png"
-                alt="Orizonix Logo"
-                width={40}
-                height={40}
-                className="object-contain"
+                src="/Auravis.png"
+                alt="Auravis Logo"
+                width={36}
+                height={36}
+                className="object-contain w-full h-full"
                 priority
               />
             </div>
-            <span className="text-xl font-heading font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>
-              Orizonix
+            <span className="text-2xl font-brand tracking-tight leading-none relative -top-[-2px]" style={{ color: "var(--text-primary)" }}>
+              Auravis
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick(link.href)}
-                className="relative text-[15px] transition-colors duration-200 font-medium py-1 group"
-                style={{ color: "var(--text-secondary)" }}
+                className={`relative text-[15px] transition-colors duration-200 font-medium py-1 group ${
+                  activeLink === link.href ? "text-gold-400" : ""
+                }`}
+                style={{ color: activeLink === link.href ? "#D4A853" : "var(--text-secondary)" }}
               >
                 {link.label}
                 <span
-                  className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ${
+                  className={`absolute bottom-0 left-0 h-[2px] bg-gold-400 transition-all duration-300 ${
                     activeLink === link.href ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 />
@@ -134,15 +137,15 @@ export default function Header() {
             <a
               href="#contact"
               onClick={handleLinkClick("#contact")}
-              className="px-6 py-2.5 btn-primary text-sm rounded-lg"
+              className="px-5 py-2.5 rounded-lg btn-primary text-[14px] font-semibold hover:scale-105 transition-transform"
             >
               Get Started
             </a>
           </div>
 
-          {/* Mobile Hamburger / Close */}
+          {/* Mobile Hamburger */}
           <button
-            className="md:hidden relative w-8 h-8 flex items-center justify-center"
+            className="lg:hidden relative w-8 h-8 flex items-center justify-center"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
@@ -180,7 +183,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 lg:hidden"
             style={{ background: "var(--surface-overlay)" }}
           >
             {navLinks.map((link, i) => (
@@ -190,9 +193,11 @@ export default function Header() {
                 onClick={handleLinkClick(link.href)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-                className="text-2xl font-heading font-semibold hover:text-blue-500 transition-colors"
-                style={{ color: "var(--text-primary)" }}
+                transition={{ delay: i * 0.06 }}
+                className={`text-xl font-heading font-semibold transition-colors ${
+                  activeLink === link.href ? "text-gold-400" : ""
+                }`}
+                style={{ color: activeLink === link.href ? "#D4A853" : "var(--text-primary)" }}
               >
                 {link.label}
               </motion.a>

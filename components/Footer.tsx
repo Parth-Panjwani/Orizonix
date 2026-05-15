@@ -20,19 +20,19 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <div
               className="w-9 h-9 rounded-md overflow-hidden"
-              style={{ filter: "drop-shadow(0 0 8px rgba(59,130,246,0.2))" }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(212,168,83,0.2))" }}
             >
               <Image
-                src="/Orizonix.png"
-                alt="Orizonix"
+                src="/Auravis.png"
+                alt="Auravis"
                 width={36}
                 height={36}
                 className="object-contain"
               />
             </div>
             <div>
-              <span className="font-heading font-bold text-[15px]" style={{ color: "var(--text-primary)" }}>
-                Orizonix
+              <span className="font-brand font-bold text-[18px] relative -top-[1px]" style={{ color: "var(--text-primary)", display: "inline-block" }}>
+                Auravis
               </span>
               <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
                 Digital Growth Partner
@@ -46,7 +46,7 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[13px] transition-colors hover:text-blue-500"
+                className="text-[13px] transition-colors hover:text-gold-400"
                 style={{ color: "var(--text-muted)" }}
               >
                 {link.label}
@@ -57,10 +57,10 @@ export default function Footer() {
           {/* Social */}
           <div className="flex gap-4">
             <a
-              href="https://linkedin.com/company/orizonix"
+              href="https://linkedin.com/company/auravis"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-500 transition-colors"
+              className="hover:text-gold-400 transition-colors"
               style={{ color: "var(--text-muted)" }}
               aria-label="LinkedIn"
             >
@@ -69,10 +69,10 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/orizonix"
+              href="https://instagram.com/auravis"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-500 transition-colors"
+              className="hover:text-gold-400 transition-colors"
               style={{ color: "var(--text-muted)" }}
               aria-label="Instagram"
             >
@@ -85,7 +85,7 @@ export default function Footer() {
 
         <div className="mt-6 pt-5 text-center" style={{ borderTop: "1px solid var(--border-subtle)" }}>
           <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-            © {new Date().getFullYear()} Orizonix. All rights reserved.
+            © {new Date().getFullYear()} Auravis. All rights reserved.
           </p>
         </div>
       </div>

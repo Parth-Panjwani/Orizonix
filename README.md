@@ -1,6 +1,6 @@
-# Orizonix Landing Page
+# Auravis Landing Page
 
-A premium, ultra-modern, micro-animated landing page for Orizonix - a creative-tech agency.
+A premium, ultra-modern, micro-animated landing page for Auravis - a creative-tech agency.
 
 ## Features
 
@@ -36,7 +36,7 @@ npm run dev
 ## Project Structure
 
 ```
-orizonix/
+auravis/
 ├── app/
 │   ├── layout.tsx      # Root layout
 │   ├── page.tsx        # Main page
@@ -47,7 +47,7 @@ orizonix/
 │   ├── Hero.tsx            # Hero section
 │   ├── Services.tsx        # Service grid
 │   ├── Pricing.tsx         # Pricing cards
-│   ├── Features.tsx        # Why Orizonix section
+│   ├── Features.tsx        # Why Auravis section
 │   ├── Contact.tsx         # Contact/CTA section
 │   └── Footer.tsx          # Footer
 └── ...
@@ -93,5 +93,5 @@ npm start
 
 ## License
 
-© 2024 Orizonix
+© 2024 Auravis
 
