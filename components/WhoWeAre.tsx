@@ -63,9 +63,7 @@ export default function WhoWeAre() {
             className="text-[15px] md:text-[17px] max-w-2xl mx-auto mt-4 md:mt-6 leading-relaxed"
             style={{ color: "var(--text-secondary)" }}
           >
-            Auravis combines performance marketing, brand strategy, web development, and
-            intelligent automation to help ambitious brands build predictable, scalable
-            revenue engines — not just run ads.
+            Auravis is a creative-tech growth agency by <span style={{ color: "var(--text-primary)" }}>Praxion Technologies</span>, under which it operates. We combine performance marketing, brand strategy, web development, and intelligent automation to help ambitious brands build predictable, scalable revenue engines — not just run ads.
           </p>
         </div>
 

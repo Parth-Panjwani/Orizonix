@@ -83,9 +83,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 pt-5 text-center" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+        <div className="mt-6 pt-5 text-center flex flex-col items-center gap-1.5" style={{ borderTop: "1px solid var(--border-subtle)" }}>
           <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
             © {new Date().getFullYear()} Auravis. All rights reserved.
+          </p>
+          <p className="text-[11px] tracking-wide" style={{ color: "var(--text-muted)", opacity: 0.85 }}>
+            Auravis is by <span className="text-gold-400 font-medium">Praxion Technologies</span>, under which it operates.
           </p>
         </div>
       </div>
